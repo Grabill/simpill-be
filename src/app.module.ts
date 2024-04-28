@@ -9,10 +9,14 @@ import { AppService } from './app.service';
         ConfigModule.forRoot({
             isGlobal: true,
         }),
-        MongooseModule.forRoot(process.env.MONGODB_URI.replace('<PASSWORD>', process.env.MONGODB_PASSWORD)),
+        MongooseModule.forRoot(
+            process.env.MONGODB_URI.replace(
+                '<PASSWORD>',
+                process.env.MONGODB_PASSWORD,
+            ),
+        ),
     ],
     controllers: [AppController],
     providers: [AppService],
 })
-
 export class AppModule {}
