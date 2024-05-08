@@ -1,0 +1,136 @@
+{
+    "Head and Neck": [
+        {"phrase": "sore throat", "type": "SYMPTOM", 
+            "pattern": [
+                {"LOWER": {"IN": ["sore", "painful", "hurt", "tender", "sensitive", "inflamed", "swollen", "distended", "bloated",
+                "cramping", "aching", "hurting", "soreness", "tenderness", "sensitivity", "inflammation", "swelling", "distention", "bloating", "stiff", "itchy"]}},
+                {"LOWER": {"IN": ["throat", "neck", "head", "chest", "abdomen", "stomach", "belly", "tummy", "back", "leg", "hand", "muscle", "joint"]}}
+            ]
+        },
+        {"phrase": "hoarseness", "type": "SYMPTOM"},
+        {"phrase": "neck pain", "type": "SYMPTOM",
+            "pattern": [
+                {"LOWER": {"IN": ["throat", "neck", "head"]}},
+                {"LOWER": {"IN": ["burning", "dryness", "clearing", "scratchy", "sore", "painful", "hurt", "tender", "sensitive", "inflamed", "swollen", "distended", "bloated"]}}
+            ]
+        },
+        {"phrase": "dizziness", "type": "SYMPTOM"},
+        {"phrase": "decline in memory", "type": "SYMPTOM",
+            "pattern": [
+                {"LOWER": {"IN": ["decline", "decrease", "increase", "change"]}},
+                {"LOWER": {"IN": ["in"]}},
+                {"LOWER": {"IN": ["memory", "cognition", "thinking", "thought", "recall", "remembering"]}}
+            ]
+        },
+        {"phrase": "memory loss", "type": "SYMPTOM", 
+            "pattern": [
+                {"LOWER": {"IN": ["memory", "cognition", "thinking", "thought", "recall", "remembering"]}},
+                {"LOWER": {"IN": ["loss", "decrease", "increase", "change"]}}
+            ]
+        },
+        {"phrase": "trouble swallowing", "type": "SYMPTOM",
+            "pattern": [
+                {"LOWER": {"IN": ["trouble", "difficulty", "hard", "impaired", "challenged", "struggling", "struggle", "struggled"]}},
+                {"LOWER": {"IN": ["swallowing", "eating", "drinking", "ingesting", "consuming", "taking", "absorbing", "digesting"]}}
+            ]
+        }
+    ],
+    "Respiratory": [
+        {"phrase": "cough", "type": "SYMPTOM"},
+        {"phrase": "shortness of breath", "type": "SYMPTOM",
+         "pattern": [
+             {"LOWER": {"IN": ["shortness", "difficulty"]}},
+             {"LOWER": {"IN": ["of"]}},
+             {"LOWER": {"IN": ["breath", "air", "oxygen", "exhale", "inhale"]}}
+         ]},
+        {"phrase": "wheezing", "type": "SYMPTOM"},
+        {"phrase": "mucus", "type": "SYMPTOM"},
+        {"phrase": "sputum", "type": "SYMPTOM"}
+    ],
+    "Cardiovascular": [
+        {"phrase": "fainting", "type": "SYMPTOM"},
+        {"phrase": "slow heartbeat", "type": "SYMPTOM",
+         "pattern": [
+             {"LOWER": {"IN": ["slow", "fast", "irregular", "racing", "increased", "decreased"]}},
+             {"LOWER": {"IN": ["heartbeat", "pulse", "heart rate"]}}
+         ]}
+    ],
+    "Gastrointestinal": [
+        {"phrase": "abdominal pain", "type": "SYMPTOM",
+         "pattern": [
+             {"LOWER": {"IN": ["abdominal", "stomach", "belly", "tummy",
+                               "head", "chest", "neck", "leg", "hand", "muscle", "joint"]}},
+             {"LOWER": {"IN": ["pain", "discomfort", "cramp", "hurt", "sore", "tender", "sensitive", "inflamed", "swollen", "distended", "bloated",
+                               "cramping", "aching", "hurting", "soreness", "tenderness", "sensitivity", "inflammation", "swelling", "distention", "bloating", "weekness"]}}
+         ]},
+        {"phrase": "nausea", "type": "SYMPTOM"},
+        {"phrase": "vomiting", "type": "SYMPTOM"},
+        {"phrase": "diarrhea", "type": "SYMPTOM"},
+        {"phrase": "constipation", "type": "SYMPTOM"},
+        {"phrase": "loss of appetite", "type": "SYMPTOM",
+         "pattern": [
+             {"LOWER": {
+                 "IN": ["loss", "decrease", "increase", "change"]}},
+             {"LOWER": {"IN": ["of"]}},
+             {"LOWER": {"IN": ["appetite", "hunger",
+                               "consciousness", "weight", "sugar"]}}
+         ]},
+        {"phrase": "bloody stool", "type": "SYMPTOM",
+         "pattern": [
+             {"LOWER": {"IN": ["bloody", "blood"]}},
+             {"LOWER": "stool"}
+         ]}
+    ],
+    "Neurological": [
+        {"phrase": "seizures", "type": "SYMPTOM"},
+        {"phrase": "confusion", "type": "SYMPTOM"},
+        {"phrase": "difficulty walking", "type": "SYMPTOM",
+         "pattern": [
+             {"LOWER": {"IN": ["difficulty", "trouble", "hard", "impaired",
+                               "challenged", "struggling", "struggle", "struggled"]}},
+             {"LOWER": {
+                 "IN": ["walking", "moving", "standing", "sitting"]}}
+         ]}
+    ],
+    "Genitourinary": [
+        {"phrase": "painful urination", "type": "SYMPTOM",
+         "pattern": [
+             {"LOWER": {"IN": ["painful", "burning", "discomfort", "hurt", "sore", "tender", "sensitive", "inflamed", "swollen", "distended", "bloated",
+                               "cramping", "aching", "hurting", "soreness", "tenderness", "sensitivity", "inflammation", "swelling", "distention", "bloating", "weekness"]}},
+             {"LOWER": {"IN": ["urination", "peeing", "pee", "urine"]}}
+         ]},
+        {"phrase": "blood in urine", "type": "SYMPTOM",
+         "pattern": [
+             {"LOWER": {"IN": ["blood", "bloody"]}},
+             {"LOWER": {"IN": ["in"]}},
+             {"LOWER": {"IN": ["urine", "pee", "peeing"]}}
+         ]},
+        {"phrase": "urinary frequency", "type": "SYMPTOM",
+         "pattern": [
+             {"LOWER": {"IN": ["frequent", "often",
+                               "repeated", "repeatedly"]}},
+             {"LOWER": {"IN": ["urination", "peeing", "pee", "urine"]}}
+         ]}
+    ],
+    "Skin": [
+        {"phrase": "rash", "type": "SYMPTOM"},
+        {"phrase": "itching", "type": "SYMPTOM"},
+        {"phrase": "hives", "type": "SYMPTOM"},
+        {"phrase": "redness", "type": "SYMPTOM"}
+    ],
+    "General": [
+        {"phrase": "fever", "type": "SYMPTOM"},
+        {"phrase": "flu", "type": "SYMPTOM"},
+        {"phrase": "cold", "type": "SYMPTOM"},
+        {"phrase": "weight loss", "type": "SYMPTOM",
+         "pattern": [
+             {"LOWER": {"IN": ["weight", "pounds", "lbs"]}},
+             {"LOWER": {"IN": ["loss", "gain", "change"]}}
+         ]},
+        {"phrase": "fatigue", "type": "SYMPTOM"},
+        {"phrase": "malaise", "type": "SYMPTOM"},
+        {"phrase": "weakness", "type": "SYMPTOM"},
+        {"phrase": "swelling", "type": "SYMPTOM"},
+        {"phrase": "exhausted", "type": "SYMPTOM"}
+    ]
+}
