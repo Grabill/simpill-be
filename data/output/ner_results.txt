@@ -1,0 +1,12 @@
+{'entity_group': 'Medication', 'score': 0.54300976, 'word': 'psi', 'start': 0, 'end': 3}
+{'entity_group': 'Medication', 'score': 0.85968375, 'word': '##cybin', 'start': 5, 'end': 10}
+{'entity_group': 'Medication', 'score': 0.46316114, 'word': 'compound', 'start': 28, 'end': 36}
+{'entity_group': 'Coreference', 'score': 0.58274025, 'word': '##cy', 'start': 81, 'end': 83}
+{'entity_group': 'Medication', 'score': 0.64505064, 'word': '##cy', 'start': 163, 'end': 165}
+{'entity_group': 'Detailed_description', 'score': 0.6477614, 'word': 'fresh', 'start': 226, 'end': 231}
+{'entity_group': 'Medication', 'score': 0.6434554, 'word': '##cy', 'start': 358, 'end': 360}
+{'entity_group': 'History', 'score': 0.6545362, 'word': 'use', 'start': 533, 'end': 536}
+{'entity_group': 'History', 'score': 0.66388506, 'word': 'migraines', 'start': 589, 'end': 598}
+{'entity_group': 'History', 'score': 0.74012977, 'word': 'ptsd', 'start': 600, 'end': 604}
+{'entity_group': 'Medication', 'score': 0.63884646, 'word': 'psi', 'start': 697, 'end': 700}
+{'entity_group': 'Medication', 'score': 0.7597218, 'word': '##cybin', 'start': 702, 'end': 707}
