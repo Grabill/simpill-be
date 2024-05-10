@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { SupplementModule } from './module/supplement/supplement.module';
 
 @Module({
     imports: [
@@ -15,6 +16,7 @@ import { AppService } from './app.service';
                 process.env.MONGODB_PASSWORD,
             ),
         ),
+        SupplementModule,
     ],
     controllers: [AppController],
     providers: [AppService],
