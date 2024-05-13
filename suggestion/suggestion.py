@@ -1,5 +1,6 @@
 from rank_bm25 import BM25Okapi
 import json, nltk, os, time
+from wmd import SimilarityCalculator
 nltk.download('punkt')
 
 class Data:
@@ -39,13 +40,17 @@ class Data:
         
         # convert out to string
         return json.dumps(out)
-    
+
+
+class SubProces:
+    pass    
 
 class Communicator:
     def __init__(self) -> None:
         self.pyPipe = '/tmp/pyPipeSimpill'
         self.jsPipe = '/tmp/jsPipeSimpill'
-        self.data = Data()
+        self.data = SimilarityCalculator('../data/cleaned_data/splm_cleaned1.json')
+        # self.data = Data()
         self.childPids = []
 
         if os.path.exists(self.pyPipe):
@@ -71,11 +76,14 @@ class Communicator:
     # format: id query
     def processQuery(self, qStr):
         pid = os.fork()
+
+        # return if it is the parent process
         if pid > 0:
             self.childPids.append(pid)
             return
         
         qStrSplit = qStr.split()
+        print(qStrSplit)
         id = qStrSplit[0]
         qStr = ' '.join(qStrSplit[1:])
 
@@ -108,7 +116,9 @@ class Communicator:
                             os.waitpid(pid, 0)
 
                         return
-                    if len(qStr) > 0:
+                    # print(qStr[0])
+                    if len(qStr) > 0 and qStr[0].isalnum():
+                        print('Calling processQuery')
                         self.processQuery(qStr)
                     
 if __name__ == '__main__':
