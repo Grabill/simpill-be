@@ -92,9 +92,10 @@ class Communicator:
 
         bm25 = BM25(qStr, res)
         res = bm25.queryBM25()
+        top5 = res[:5]
 
         # print(id, ':', str(res))
-        self.writePipe(id + ' ' + str(res))
+        self.writePipe(id + ' ' + str(top5))
 
 
         print('query processed:', qStr)
