@@ -50,7 +50,6 @@ class Communicator:
     def __init__(self) -> None:
         self.pyPipe = '/tmp/pyPipeSimpill'
         self.jsPipe = '/tmp/jsPipeSimpill'
-        self.data = SimilarityCalculator('../data/cleaned_data/splm_cleaned1.json')
         # self.data = Data()
         self.childPids = []
 
@@ -61,6 +60,8 @@ class Communicator:
 
         os.mkfifo(self.pyPipe)
         os.mkfifo(self.jsPipe)
+
+        self.data = SimilarityCalculator('../data/cleaned_data/splm_cleaned1.json')
 
     def writePipe(self, msg):
         fd = os.open(self.pyPipe, os.O_RDWR)
