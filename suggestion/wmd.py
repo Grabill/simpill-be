@@ -30,6 +30,7 @@ class SimilarityCalculator:
         self.descriptions = [(str(d['overview']) + str(d['uses'])).lower() for d in self.data]
         self.processed_descriptions = [DataPreprocessor().preprocess_paragraph(d) for d in self.descriptions]
         self.wmd_instances = [WmdSimilarity(desc, self.model, num_best=4) for desc in self.processed_descriptions]
+        print('Instances created.')
 
     def get_similarity(self, query, threshold=0.43):
         print('Calculating similarity...')

@@ -1,6 +1,7 @@
 from rank_bm25 import BM25Okapi
 import json, nltk, os, time
 from wmd import SimilarityCalculator
+from bm25 import BM25
 nltk.download('punkt')
 
 class Data:
@@ -88,8 +89,14 @@ class Communicator:
         qStr = ' '.join(qStrSplit[1:])
 
         res = self.data.query(qStr)
-        print(id, ':', res)
-        self.writePipe(id + ' ' + res)
+
+        bm25 = BM25(qStr, res)
+        res = bm25.queryBM25()
+        top5 = res[:5]
+
+        # print(id, ':', str(res))
+        self.writePipe(id + ' ' + str(top5))
+
 
         print('query processed:', qStr)
         time.sleep(60)
@@ -107,6 +114,7 @@ class Communicator:
                 qStrs = self.readPipe()
 
                 # call os.fork to process each query
+                print('qStrs:', qStrs)
                 for qStr in qStrs:
                     if qStr == 'quit':
                         print('quitting')
