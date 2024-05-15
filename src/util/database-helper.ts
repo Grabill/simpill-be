@@ -10,7 +10,7 @@ import { Logger } from '@nestjs/common';
 export function populate<Schema>(model: Model<Schema>, data: Schema[]) {
     const logger = new Logger(`[populate<${model.modelName}>`); 
     logger.log(`Populating ${model.modelName} collection...`);
-    model.insertMany(data)
+    model.updateMany({}, data, { upsert: true })
         .then(() => logger.log(`Successfully populated ${model.collection.name} collection!`))
         .catch((error) => logger.error(`Failed to populate ${model.collection.name} collection: ${error}`));
 }
