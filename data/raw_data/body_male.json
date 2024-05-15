@@ -1,10 +1,394 @@
 [
-{"body_part": "Head and Neck", "symptoms": [{"symptom": "Forgetfulness Memory Loss", "url": "https://www.drugs.com/symptom/forgetfulness-memory-loss-1.html"}, {"symptom": "Hair Loss in Men", "url": "https://www.drugs.com/symptom/hair-loss-in-men-1.html"}, {"symptom": "Headache", "url": "https://www.drugs.com/symptom/headache-1.html"}, {"symptom": "Jaw, Gum, or Tooth Pain", "url": "https://www.drugs.com/symptom/jaw-gum-or-tooth-pain-1.html"}, {"symptom": "Lightheaded with Standing", "url": "https://www.drugs.com/symptom/lightheaded-with-standing-1.html"}, {"symptom": "Neck Pain", "url": "https://www.drugs.com/symptom/neck-pain-1.html"}, {"symptom": "New Onset Dizziness", "url": "https://www.drugs.com/symptom/new-onset-dizziness-1.html"}, {"symptom": "Swollen Glands (General)", "url": "https://www.drugs.com/symptom/swollen-glands-general-1.html"}, {"symptom": "Swollen Glands in the Neck", "url": "https://www.drugs.com/symptom/swollen-glands-in-the-neck-1.html"}]},
-{"body_part": "Arms and Hands", "symptoms": [{"symptom": "Elbow Pain", "url": "https://www.drugs.com/symptom/elbow-pain-1.html"}, {"symptom": "Hand Pain", "url": "https://www.drugs.com/symptom/hand-pain-1.html"}, {"symptom": "Nail Problems", "url": "https://www.drugs.com/symptom/nail-problems-1.html"}, {"symptom": "Numbness or Tingling", "url": "https://www.drugs.com/symptom/numbness-or-tingling-1.html"}, {"symptom": "Shoulder Pain", "url": "https://www.drugs.com/symptom/shoulder-pain-1.html"}, {"symptom": "Tremor", "url": "https://www.drugs.com/symptom/tremor-1.html"}, {"symptom": "Wrist Pain", "url": "https://www.drugs.com/symptom/wrist-pain-1.html"}]},
-{"body_part": "Ear, Nose, Throat", "symptoms": [{"symptom": "Coughs and Colds", "url": "https://www.drugs.com/symptom/coughs-and-colds-1.html"}, {"symptom": "Dry Mouth and Excessive Thirst", "url": "https://www.drugs.com/symptom/dry-mouth-and-excessive-thirst-1.html"}, {"symptom": "Dry Skin", "url": "https://www.drugs.com/symptom/dry-skin-1.html"}, {"symptom": "Earache in Adults", "url": "https://www.drugs.com/symptom/earache-in-adults-1.html"}, {"symptom": "Persistent Cough", "url": "https://www.drugs.com/symptom/persistent-cough-1.html"}, {"symptom": "Smell and Taste Loss", "url": "https://www.drugs.com/symptom/smell-and-taste-loss-1.html"}, {"symptom": "Sore Throat", "url": "https://www.drugs.com/symptom/sore-throat-1.html"}, {"symptom": "Sudden Hearing Loss", "url": "https://www.drugs.com/symptom/sudden-hearing-loss-1.html"}, {"symptom": "Swallowing Difficulty", "url": "https://www.drugs.com/symptom/swallowing-difficulty-1.html"}, {"symptom": "Swollen Glands (General)", "url": "https://www.drugs.com/symptom/swollen-glands-general-1.html"}, {"symptom": "Tinnitus", "url": "https://www.drugs.com/symptom/tinnitus-1.html"}]},
-{"body_part": "General Health", "symptoms": [{"symptom": "Anxiety", "url": "https://www.drugs.com/symptom/anxiety-1.html"}, {"symptom": "Blacking Out, Fainting, or Loss of Consciousness", "url": "https://www.drugs.com/symptom/blacking-out-fainting-or-loss-of-consciousness-1.html"}, {"symptom": "Blood Magnesium Test", "url": "https://www.drugs.com/symptom/blood-magnesium-test-1.html"}, {"symptom": "Daytime Drowsiness", "url": "https://www.drugs.com/symptom/daytime-drowsiness-1.html"}, {"symptom": "Depression", "url": "https://www.drugs.com/symptom/depression-1.html"}, {"symptom": "Diffuse Muscle Weakness", "url": "https://www.drugs.com/symptom/diffuse-muscle-weakness-1.html"}, {"symptom": "Diffuse Pain", "url": "https://www.drugs.com/symptom/diffuse-pain-1.html"}, {"symptom": "Fever in Adults", "url": "https://www.drugs.com/symptom/fever-in-adults-1.html"}, {"symptom": "Forgetfulness Memory Loss", "url": "https://www.drugs.com/symptom/forgetfulness-memory-loss-1.html"}, {"symptom": "Gout", "url": "https://www.drugs.com/symptom/gout-1.html"}, {"symptom": "Helping Dry Skin", "url": "https://www.drugs.com/symptom/helping-dry-skin-1.html"}, {"symptom": "Hot Flashes", "url": "https://www.drugs.com/symptom/hot-flashes-1.html"}, {"symptom": "Imbalance", "url": "https://www.drugs.com/symptom/imbalance-1.html"}, {"symptom": "Insomnia", "url": "https://www.drugs.com/symptom/insomnia-1.html"}, {"symptom": "Itching Without Rash", "url": "https://www.drugs.com/symptom/itching-without-rash-1.html"}, {"symptom": "Jaundice in Adults", "url": "https://www.drugs.com/symptom/jaundice-in-adults-1.html"}, {"symptom": "Numbness or Tingling", "url": "https://www.drugs.com/symptom/numbness-or-tingling-1.html"}, {"symptom": "Positive ANA", "url": "https://www.drugs.com/symptom/positive-ana-1.html"}, {"symptom": "Positive Rheumatoid Factor", "url": "https://www.drugs.com/symptom/positive-rheumatoid-factor-1.html"}, {"symptom": "Raynaud's", "url": "https://www.drugs.com/symptom/raynaud-s-1.html"}, {"symptom": "Unexplained Weight Gain", "url": "https://www.drugs.com/symptom/unexplained-weight-gain-1.html"}, {"symptom": "Unintentional Weight Loss", "url": "https://www.drugs.com/symptom/unintentional-weight-loss-1.html"}]},
-{"body_part": "Abdomen and Pelvis", "symptoms": [{"symptom": "Acid Reflux Treatment", "url": "https://www.drugs.com/symptom/acid-reflux-treatment-1.html"}, {"symptom": "Blood in the Urine in Men", "url": "https://www.drugs.com/symptom/blood-in-the-urine-in-men-1.html"}, {"symptom": "Causes of Impotence", "url": "https://www.drugs.com/symptom/causes-of-impotence-1.html"}, {"symptom": "Colon Cancer Screening", "url": "https://www.drugs.com/symptom/colon-cancer-screening-1.html"}, {"symptom": "Constipation in Adults", "url": "https://www.drugs.com/symptom/constipation-in-adults-1.html"}, {"symptom": "Diarrhea", "url": "https://www.drugs.com/symptom/diarrhea-1.html"}, {"symptom": "Difficulty Passing Urine", "url": "https://www.drugs.com/symptom/difficulty-passing-urine-1.html"}, {"symptom": "Intestinal Gas Guide", "url": "https://www.drugs.com/symptom/intestinal-gas-guide-1.html"}, {"symptom": "Loss of Control of Urine in Men", "url": "https://www.drugs.com/symptom/loss-of-control-of-urine-in-men-1.html"}, {"symptom": "Lumps or Pain Within the Scrotum", "url": "https://www.drugs.com/symptom/lumps-or-pain-within-the-scrotum-1.html"}, {"symptom": "Nausea and Vomiting", "url": "https://www.drugs.com/symptom/nausea-and-vomiting-1.html"}, {"symptom": "Painful or Frequent Urination in Men", "url": "https://www.drugs.com/symptom/painful-or-frequent-urination-in-men-1.html"}, {"symptom": "Penis Pain, Sores, Discharge or Lumps", "url": "https://www.drugs.com/symptom/penis-pain-sores-discharge-or-lumps-1.html"}, {"symptom": "Rectal Bleeding", "url": "https://www.drugs.com/symptom/rectal-bleeding-1.html"}, {"symptom": "Rectal Pain or Itching", "url": "https://www.drugs.com/symptom/rectal-pain-or-itching-1.html"}, {"symptom": "Recurring Abdominal Pain", "url": "https://www.drugs.com/symptom/recurring-abdominal-pain-1.html"}, {"symptom": "Sexual Problems in Men", "url": "https://www.drugs.com/symptom/sexual-problems-in-men-1.html"}, {"symptom": "Treatment of Impotence", "url": "https://www.drugs.com/symptom/treatment-of-impotence-1.html"}, {"symptom": "Understanding New and Severe Abdominal Pain", "url": "https://www.drugs.com/symptom/understanding-new-and-severe-abdominal-pain-1.html"}, {"symptom": "Understanding PSA", "url": "https://www.drugs.com/symptom/understanding-psa-1.html"}]},
-{"body_part": "Chest and Back", "symptoms": [{"symptom": "Chest Pain", "url": "https://www.drugs.com/symptom/chest-pain-1.html"}, {"symptom": "Coughs and Colds", "url": "https://www.drugs.com/symptom/coughs-and-colds-1.html"}, {"symptom": "Heart Palpitations", "url": "https://www.drugs.com/symptom/heart-palpitations-1.html"}, {"symptom": "Low Back Pain", "url": "https://www.drugs.com/symptom/low-back-pain-1.html"}, {"symptom": "Numbness or Tingling", "url": "https://www.drugs.com/symptom/numbness-or-tingling-1.html"}, {"symptom": "Shortness of Breath in Adults", "url": "https://www.drugs.com/symptom/shortness-of-breath-in-adults-1.html"}, {"symptom": "Wheezing in Adults", "url": "https://www.drugs.com/symptom/wheezing-in-adults-1.html"}]},
-{"body_part": "Eyes", "symptoms": [{"symptom": "Dry Eyes and Mouth", "url": "https://www.drugs.com/symptom/dry-eyes-and-mouth-1.html"}, {"symptom": "Eye Discharge", "url": "https://www.drugs.com/symptom/eye-discharge-1.html"}, {"symptom": "Pain in the Eye", "url": "https://www.drugs.com/symptom/pain-in-the-eye-1.html"}, {"symptom": "Problems With Vision", "url": "https://www.drugs.com/symptom/problems-with-vision-1.html"}]},
-{"body_part": "Legs and Feet", "symptoms": [{"symptom": "Ankle Pain", "url": "https://www.drugs.com/symptom/ankle-pain-1.html"}, {"symptom": "Foot Pain", "url": "https://www.drugs.com/symptom/foot-pain-1.html"}, {"symptom": "Hip Pain", "url": "https://www.drugs.com/symptom/hip-pain-1.html"}, {"symptom": "Knee Pain", "url": "https://www.drugs.com/symptom/knee-pain-1.html"}, {"symptom": "Leg Swelling (Edema), New Onset", "url": "https://www.drugs.com/symptom/leg-swelling-edema-new-onset-1.html"}, {"symptom": "Numbness or Tingling", "url": "https://www.drugs.com/symptom/numbness-or-tingling-1.html"}, {"symptom": "Osteoarthritis of the Knee", "url": "https://www.drugs.com/symptom/osteoarthritis-of-the-knee-1.html"}, {"symptom": "Persistent Knee Swelling", "url": "https://www.drugs.com/symptom/persistent-knee-swelling-1.html"}]}
+    {
+        "body_part": "Head and Neck",
+        "symptoms": [
+            {
+                "symptom": "Forgetfulness Memory Loss",
+                "url": "https://www.drugs.com/symptom/forgetfulness-memory-loss-1.html"
+            },
+            {
+                "symptom": "Hair Loss in Men",
+                "url": "https://www.drugs.com/symptom/hair-loss-in-men-1.html"
+            },
+            {
+                "symptom": "Headache",
+                "url": "https://www.drugs.com/symptom/headache-1.html"
+            },
+            {
+                "symptom": "Jaw, Gum, or Tooth Pain",
+                "url": "https://www.drugs.com/symptom/jaw-gum-or-tooth-pain-1.html"
+            },
+            {
+                "symptom": "Lightheaded with Standing",
+                "url": "https://www.drugs.com/symptom/lightheaded-with-standing-1.html"
+            },
+            {
+                "symptom": "Neck Pain",
+                "url": "https://www.drugs.com/symptom/neck-pain-1.html"
+            },
+            {
+                "symptom": "New Onset Dizziness",
+                "url": "https://www.drugs.com/symptom/new-onset-dizziness-1.html"
+            },
+            {
+                "symptom": "Swollen Glands (General)",
+                "url": "https://www.drugs.com/symptom/swollen-glands-general-1.html"
+            },
+            {
+                "symptom": "Swollen Glands in the Neck",
+                "url": "https://www.drugs.com/symptom/swollen-glands-in-the-neck-1.html"
+            }
+        ]
+    },
+    {
+        "body_part": "Arms and Hands",
+        "symptoms": [
+            {
+                "symptom": "Elbow Pain",
+                "url": "https://www.drugs.com/symptom/elbow-pain-1.html"
+            },
+            {
+                "symptom": "Hand Pain",
+                "url": "https://www.drugs.com/symptom/hand-pain-1.html"
+            },
+            {
+                "symptom": "Nail Problems",
+                "url": "https://www.drugs.com/symptom/nail-problems-1.html"
+            },
+            {
+                "symptom": "Numbness or Tingling",
+                "url": "https://www.drugs.com/symptom/numbness-or-tingling-1.html"
+            },
+            {
+                "symptom": "Shoulder Pain",
+                "url": "https://www.drugs.com/symptom/shoulder-pain-1.html"
+            },
+            {
+                "symptom": "Tremor",
+                "url": "https://www.drugs.com/symptom/tremor-1.html"
+            },
+            {
+                "symptom": "Wrist Pain",
+                "url": "https://www.drugs.com/symptom/wrist-pain-1.html"
+            }
+        ]
+    },
+    {
+        "body_part": "Ear, Nose, Throat",
+        "symptoms": [
+            {
+                "symptom": "Coughs and Colds",
+                "url": "https://www.drugs.com/symptom/coughs-and-colds-1.html"
+            },
+            {
+                "symptom": "Dry Mouth and Excessive Thirst",
+                "url": "https://www.drugs.com/symptom/dry-mouth-and-excessive-thirst-1.html"
+            },
+            {
+                "symptom": "Dry Skin",
+                "url": "https://www.drugs.com/symptom/dry-skin-1.html"
+            },
+            {
+                "symptom": "Earache in Adults",
+                "url": "https://www.drugs.com/symptom/earache-in-adults-1.html"
+            },
+            {
+                "symptom": "Persistent Cough",
+                "url": "https://www.drugs.com/symptom/persistent-cough-1.html"
+            },
+            {
+                "symptom": "Smell and Taste Loss",
+                "url": "https://www.drugs.com/symptom/smell-and-taste-loss-1.html"
+            },
+            {
+                "symptom": "Sore Throat",
+                "url": "https://www.drugs.com/symptom/sore-throat-1.html"
+            },
+            {
+                "symptom": "Sudden Hearing Loss",
+                "url": "https://www.drugs.com/symptom/sudden-hearing-loss-1.html"
+            },
+            {
+                "symptom": "Swallowing Difficulty",
+                "url": "https://www.drugs.com/symptom/swallowing-difficulty-1.html"
+            },
+            {
+                "symptom": "Swollen Glands (General)",
+                "url": "https://www.drugs.com/symptom/swollen-glands-general-1.html"
+            },
+            {
+                "symptom": "Tinnitus",
+                "url": "https://www.drugs.com/symptom/tinnitus-1.html"
+            }
+        ]
+    },
+    {
+        "body_part": "General Health",
+        "symptoms": [
+            {
+                "symptom": "Anxiety",
+                "url": "https://www.drugs.com/symptom/anxiety-1.html"
+            },
+            {
+                "symptom": "Blacking Out, Fainting, or Loss of Consciousness",
+                "url": "https://www.drugs.com/symptom/blacking-out-fainting-or-loss-of-consciousness-1.html"
+            },
+            {
+                "symptom": "Blood Magnesium Test",
+                "url": "https://www.drugs.com/symptom/blood-magnesium-test-1.html"
+            },
+            {
+                "symptom": "Daytime Drowsiness",
+                "url": "https://www.drugs.com/symptom/daytime-drowsiness-1.html"
+            },
+            {
+                "symptom": "Depression",
+                "url": "https://www.drugs.com/symptom/depression-1.html"
+            },
+            {
+                "symptom": "Diffuse Muscle Weakness",
+                "url": "https://www.drugs.com/symptom/diffuse-muscle-weakness-1.html"
+            },
+            {
+                "symptom": "Diffuse Pain",
+                "url": "https://www.drugs.com/symptom/diffuse-pain-1.html"
+            },
+            {
+                "symptom": "Fever in Adults",
+                "url": "https://www.drugs.com/symptom/fever-in-adults-1.html"
+            },
+            {
+                "symptom": "Forgetfulness Memory Loss",
+                "url": "https://www.drugs.com/symptom/forgetfulness-memory-loss-1.html"
+            },
+            {
+                "symptom": "Gout",
+                "url": "https://www.drugs.com/symptom/gout-1.html"
+            },
+            {
+                "symptom": "Helping Dry Skin",
+                "url": "https://www.drugs.com/symptom/helping-dry-skin-1.html"
+            },
+            {
+                "symptom": "Hot Flashes",
+                "url": "https://www.drugs.com/symptom/hot-flashes-1.html"
+            },
+            {
+                "symptom": "Imbalance",
+                "url": "https://www.drugs.com/symptom/imbalance-1.html"
+            },
+            {
+                "symptom": "Insomnia",
+                "url": "https://www.drugs.com/symptom/insomnia-1.html"
+            },
+            {
+                "symptom": "Itching Without Rash",
+                "url": "https://www.drugs.com/symptom/itching-without-rash-1.html"
+            },
+            {
+                "symptom": "Jaundice in Adults",
+                "url": "https://www.drugs.com/symptom/jaundice-in-adults-1.html"
+            },
+            {
+                "symptom": "Numbness or Tingling",
+                "url": "https://www.drugs.com/symptom/numbness-or-tingling-1.html"
+            },
+            {
+                "symptom": "Positive ANA",
+                "url": "https://www.drugs.com/symptom/positive-ana-1.html"
+            },
+            {
+                "symptom": "Positive Rheumatoid Factor",
+                "url": "https://www.drugs.com/symptom/positive-rheumatoid-factor-1.html"
+            },
+            {
+                "symptom": "Raynaud's",
+                "url": "https://www.drugs.com/symptom/raynaud-s-1.html"
+            },
+            {
+                "symptom": "Unexplained Weight Gain",
+                "url": "https://www.drugs.com/symptom/unexplained-weight-gain-1.html"
+            },
+            {
+                "symptom": "Unintentional Weight Loss",
+                "url": "https://www.drugs.com/symptom/unintentional-weight-loss-1.html"
+            }
+        ]
+    },
+    {
+        "body_part": "Abdomen and Pelvis",
+        "symptoms": [
+            {
+                "symptom": "Acid Reflux Treatment",
+                "url": "https://www.drugs.com/symptom/acid-reflux-treatment-1.html"
+            },
+            {
+                "symptom": "Blood in the Urine in Men",
+                "url": "https://www.drugs.com/symptom/blood-in-the-urine-in-men-1.html"
+            },
+            {
+                "symptom": "Causes of Impotence",
+                "url": "https://www.drugs.com/symptom/causes-of-impotence-1.html"
+            },
+            {
+                "symptom": "Colon Cancer Screening",
+                "url": "https://www.drugs.com/symptom/colon-cancer-screening-1.html"
+            },
+            {
+                "symptom": "Constipation in Adults",
+                "url": "https://www.drugs.com/symptom/constipation-in-adults-1.html"
+            },
+            {
+                "symptom": "Diarrhea",
+                "url": "https://www.drugs.com/symptom/diarrhea-1.html"
+            },
+            {
+                "symptom": "Difficulty Passing Urine",
+                "url": "https://www.drugs.com/symptom/difficulty-passing-urine-1.html"
+            },
+            {
+                "symptom": "Intestinal Gas Guide",
+                "url": "https://www.drugs.com/symptom/intestinal-gas-guide-1.html"
+            },
+            {
+                "symptom": "Loss of Control of Urine in Men",
+                "url": "https://www.drugs.com/symptom/loss-of-control-of-urine-in-men-1.html"
+            },
+            {
+                "symptom": "Lumps or Pain Within the Scrotum",
+                "url": "https://www.drugs.com/symptom/lumps-or-pain-within-the-scrotum-1.html"
+            },
+            {
+                "symptom": "Nausea and Vomiting",
+                "url": "https://www.drugs.com/symptom/nausea-and-vomiting-1.html"
+            },
+            {
+                "symptom": "Painful or Frequent Urination in Men",
+                "url": "https://www.drugs.com/symptom/painful-or-frequent-urination-in-men-1.html"
+            },
+            {
+                "symptom": "Penis Pain, Sores, Discharge or Lumps",
+                "url": "https://www.drugs.com/symptom/penis-pain-sores-discharge-or-lumps-1.html"
+            },
+            {
+                "symptom": "Rectal Bleeding",
+                "url": "https://www.drugs.com/symptom/rectal-bleeding-1.html"
+            },
+            {
+                "symptom": "Rectal Pain or Itching",
+                "url": "https://www.drugs.com/symptom/rectal-pain-or-itching-1.html"
+            },
+            {
+                "symptom": "Recurring Abdominal Pain",
+                "url": "https://www.drugs.com/symptom/recurring-abdominal-pain-1.html"
+            },
+            {
+                "symptom": "Sexual Problems in Men",
+                "url": "https://www.drugs.com/symptom/sexual-problems-in-men-1.html"
+            },
+            {
+                "symptom": "Treatment of Impotence",
+                "url": "https://www.drugs.com/symptom/treatment-of-impotence-1.html"
+            },
+            {
+                "symptom": "Understanding New and Severe Abdominal Pain",
+                "url": "https://www.drugs.com/symptom/understanding-new-and-severe-abdominal-pain-1.html"
+            },
+            {
+                "symptom": "Understanding PSA",
+                "url": "https://www.drugs.com/symptom/understanding-psa-1.html"
+            }
+        ]
+    },
+    {
+        "body_part": "Chest and Back",
+        "symptoms": [
+            {
+                "symptom": "Chest Pain",
+                "url": "https://www.drugs.com/symptom/chest-pain-1.html"
+            },
+            {
+                "symptom": "Coughs and Colds",
+                "url": "https://www.drugs.com/symptom/coughs-and-colds-1.html"
+            },
+            {
+                "symptom": "Heart Palpitations",
+                "url": "https://www.drugs.com/symptom/heart-palpitations-1.html"
+            },
+            {
+                "symptom": "Low Back Pain",
+                "url": "https://www.drugs.com/symptom/low-back-pain-1.html"
+            },
+            {
+                "symptom": "Numbness or Tingling",
+                "url": "https://www.drugs.com/symptom/numbness-or-tingling-1.html"
+            },
+            {
+                "symptom": "Shortness of Breath in Adults",
+                "url": "https://www.drugs.com/symptom/shortness-of-breath-in-adults-1.html"
+            },
+            {
+                "symptom": "Wheezing in Adults",
+                "url": "https://www.drugs.com/symptom/wheezing-in-adults-1.html"
+            }
+        ]
+    },
+    {
+        "body_part": "Eyes",
+        "symptoms": [
+            {
+                "symptom": "Dry Eyes and Mouth",
+                "url": "https://www.drugs.com/symptom/dry-eyes-and-mouth-1.html"
+            },
+            {
+                "symptom": "Eye Discharge",
+                "url": "https://www.drugs.com/symptom/eye-discharge-1.html"
+            },
+            {
+                "symptom": "Pain in the Eye",
+                "url": "https://www.drugs.com/symptom/pain-in-the-eye-1.html"
+            },
+            {
+                "symptom": "Problems With Vision",
+                "url": "https://www.drugs.com/symptom/problems-with-vision-1.html"
+            }
+        ]
+    },
+    {
+        "body_part": "Legs and Feet",
+        "symptoms": [
+            {
+                "symptom": "Ankle Pain",
+                "url": "https://www.drugs.com/symptom/ankle-pain-1.html"
+            },
+            {
+                "symptom": "Foot Pain",
+                "url": "https://www.drugs.com/symptom/foot-pain-1.html"
+            },
+            {
+                "symptom": "Hip Pain",
+                "url": "https://www.drugs.com/symptom/hip-pain-1.html"
+            },
+            {
+                "symptom": "Knee Pain",
+                "url": "https://www.drugs.com/symptom/knee-pain-1.html"
+            },
+            {
+                "symptom": "Leg Swelling (Edema), New Onset",
+                "url": "https://www.drugs.com/symptom/leg-swelling-edema-new-onset-1.html"
+            },
+            {
+                "symptom": "Numbness or Tingling",
+                "url": "https://www.drugs.com/symptom/numbness-or-tingling-1.html"
+            },
+            {
+                "symptom": "Osteoarthritis of the Knee",
+                "url": "https://www.drugs.com/symptom/osteoarthritis-of-the-knee-1.html"
+            },
+            {
+                "symptom": "Persistent Knee Swelling",
+                "url": "https://www.drugs.com/symptom/persistent-knee-swelling-1.html"
+            }
+        ]
+    }
 ]
