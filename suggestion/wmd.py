@@ -32,14 +32,18 @@ class SimilarityCalculator:
         self.wmd_instances = [WmdSimilarity(desc, self.model, num_best=4) for desc in self.processed_descriptions]
         print('Instances created.')
 
-    def get_similarity(self, query, threshold=0.43):
-        print('Calculating similarity...')
-        query = DataPreprocessor().preprocess_sentence(query)
+    def get_avg_sims(self, query, threshold):
         avg_sims = []
         for instance in self.wmd_instances:
             sims = instance.get_similarities(query)
             sims = sims[sims > threshold]
             avg_sims.append(np.mean(sims) if len(sims) > 0 else 0)
+        return avg_sims
+
+    def get_similarity(self, query, threshold=0.43):
+        print('Calculating similarity...')
+        query = DataPreprocessor().preprocess_sentence(query)
+        avg_sims = self.get_avg_sims(query, threshold)
         sorted_indices = np.argsort(avg_sims)[::-1]
         results = [{'description': self.data[i], 'similarity': avg_sims[i]} for i in sorted_indices]
         print('Similarity calculated.')

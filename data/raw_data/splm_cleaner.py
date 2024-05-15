@@ -6,7 +6,7 @@ with open('splm.json', 'r') as f:
 
 def test(tag):
     for i in data:
-        if i["name"].lower() == "magnesium":
+        if i["name"].lower() == "fennel":
             return i[tag]
 
 class Cleaner:
@@ -154,14 +154,33 @@ class Cleaner:
         if raw_data == None:
             return None
 
-        res = '>'.join(raw_data.split('>')[1:-2] + [''])
+        text1 = '>'.join(raw_data.split('>')[1:-2] + [''])
+        res = ''
 
-        return res
+        # remove <a ....> and </a> tags
+        flag_a = False
+        for i in text1:
+            if flag_a:
+                if i == '>':
+                    flag_a = False
+                continue
+            res += i
+
+            # check if last 2 characters are '<a'
+            if len(res) > 1 and res[-2:] == '<a':
+                res = res[:-2]
+                flag_a = True
+            
+            # check if last 4 characters are '</a>'
+            if len(res) > 3 and res[-4:] == '</a>':
+                res = res[:-4]
+
+        return ' '.join(res.split())
         
 
     
-# a = test("uses")
-# b = Cleaner().get_uses(a)
+# a = test("dosing")
+# b = Cleaner().get_dosing(a)
 # print(b)
 
 def run():
@@ -180,7 +199,7 @@ def run():
             "dosing": cleaner.get_dosing(i["dosing"])
         })
 
-    with open('splm_cleaned.json', 'w') as f:
+    with open('splm_cleaned_for_fe.json', 'w') as f:
         json.dump(cleaned_data, f)
 
 run()

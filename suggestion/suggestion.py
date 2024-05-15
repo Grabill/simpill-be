@@ -50,7 +50,6 @@ class Communicator:
     def __init__(self) -> None:
         self.pyPipe = '/tmp/pyPipeSimpill'
         self.jsPipe = '/tmp/jsPipeSimpill'
-        # self.data = Data()
         self.childPids = []
 
         if os.path.exists(self.pyPipe):
@@ -66,7 +65,7 @@ class Communicator:
     def writePipe(self, msg):
         fd = os.open(self.pyPipe, os.O_RDWR)
         os.write(fd, (msg + "|").encode())
-        print('write:', msg)
+        print('write:', msg[:10], '...')
 
     def readPipe(self):
         fd = os.open(self.jsPipe, os.O_RDWR)
