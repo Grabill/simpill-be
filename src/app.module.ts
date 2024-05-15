@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { PipeService } from './pipe.service';
 import { SupplementModule } from './module/supplement/supplement.module';
 
 @Module({
@@ -19,6 +20,6 @@ import { SupplementModule } from './module/supplement/supplement.module';
         SupplementModule,
     ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [AppService, PipeService],
 })
 export class AppModule {}
