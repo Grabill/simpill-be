@@ -13,7 +13,7 @@ export class SupplementController {
 
     @Get(':name')
     async getDetailedSupplementByName(@Param('name') name: string) {
-        const result = await this.supplementService.findByName(name, true);
+        const result = await this.supplementService.findByName(name, true, true);
         return result.length > 0 ? result[0] : {};
     }
 }

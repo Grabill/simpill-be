@@ -16,6 +16,9 @@ export class SupplementService {
     ) {
         // populate(this.supplementModel, SupplementData as Supplement[]);
 
+        if (process.env.SKIP_SUGGESTION === 'true') {
+            return;
+        }
         // Send all supplements to the pipe
         this.getAllSupplements().then((supplements) => {
             let data = JSON.stringify(supplements);
@@ -24,21 +27,17 @@ export class SupplementService {
     }
 
     /**
-     * Find a supplement by its name (case insensitive)
+     * Find supplements by its name (case insensitive)
      * @param name name of the supplement
      * @param exact whether to match the name exactly
+     * @param verbose whether to return the entire supplement object
      * @returns an array of supplements that match the name
      */
-    async findByName(name: string, exact: boolean) : Promise<SupplementQueryResultDto[]> {
+    async findByName(name: string, exact: boolean, verbose: boolean = false) : Promise<SupplementQueryResultDto[]> {
         name = name.toUpperCase();
-        let filter: FilterQuery<Supplement>;
-        if (exact) {
-            filter = { name: name };
-        }
-        else {
-            filter = { name: { $regex: new RegExp(name) } };
-        }
-        return await this.supplementModel.find(filter).select('name overview');
+        const filter: FilterQuery<Supplement> = exact ? { name: name } : { name: { $regex: new RegExp(name) } };
+        const selection = verbose ? '-_id' : '-_id name overview';
+        return await this.supplementModel.find(filter).select(selection);
     }
 
     /**

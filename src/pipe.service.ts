@@ -13,6 +13,9 @@ export class PipeService {
     public readonly MAX_PIPE_SIZE = 65536;
 
     constructor() {
+        if (process.env.SKIP_SUGGESTION === 'true') {
+            return;
+        }
         setTimeout(() => {
             while (!existsSync(this.pipePath)) {
                 this.logger.log('Waiting for pipe...');
