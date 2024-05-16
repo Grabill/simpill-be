@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SupplementModule } from './module/supplement/supplement.module';
 import { PipeModule } from './pipe.module';
+import { SymptomModule } from './module/symptom/symptom.module';
 
 @Module({
     imports: [
@@ -19,6 +20,7 @@ import { PipeModule } from './pipe.module';
         ),
         PipeModule,
         SupplementModule,
+        SymptomModule
     ],
     controllers: [AppController],
     providers: [AppService],

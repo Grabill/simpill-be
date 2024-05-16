@@ -7,10 +7,18 @@ import { Logger } from '@nestjs/common';
  * @param data the data to populate the collection witk
  * @returns void
  */
-export function populate<Schema>(model: Model<Schema>, data: Schema[]) {
+export async function populate<Schema>(model: Model<Schema>, data: Schema[]) : Promise<any> {
     const logger = new Logger(`populate<${model.modelName}>`); 
     logger.log(`Populating ${model.modelName} collection...`);
-    model.insertMany(data)
-        .then(() => logger.log(`Successfully populated ${model.collection.name} collection!`))
-        .catch((error) => logger.error(`Failed to populate ${model.collection.name} collection: ${error}`));
+    return new Promise((resolve, reject) => {
+        model.insertMany(data)
+            .then((res) => {
+                logger.log(`Successfully populated ${model.collection.name} collection!`);
+                resolve(res);
+            })
+            .catch((error) => {
+                logger.error(`Failed to populate ${model.collection.name} collection: ${error}`);
+                reject();
+            });
+    });
 }
