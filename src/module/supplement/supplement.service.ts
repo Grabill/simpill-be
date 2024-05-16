@@ -30,6 +30,7 @@ export class SupplementService {
      * Find supplements by its name (case insensitive)
      * @param name name of the supplement
      * @param exact whether to match the name exactly
+     * @param verbose whether to return the entire supplement object
      * @returns an array of supplements that match the name
      */
     async findByName(name: string, exact: boolean, verbose: boolean = false) : Promise<SupplementQueryResultDto[]> {
