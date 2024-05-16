@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model /*, Types*/} from 'mongoose';
 import { Symptom } from 'src/schema/symptom.schema';
+import { SymptomQueryResultDto } from './dto/symptom-query-result.dto';
 // import { BodyPart, BodyPartDocument} from 'src/schema/body-part.schema';
 // import { populate } from 'src/util/database-helper';
 // import * as SymptomData from './data/symptoms.json';
@@ -27,4 +28,28 @@ export class SymptomService {
         // });
     }
 
+    async getAllSymptoms(): Promise<SymptomQueryResultDto[]> {
+        return await this.symptomModel.aggregate([
+            {
+                $lookup: {
+                    from: 'bodyparts',
+                    localField: 'bodyPart',
+                    foreignField: '_id',
+                    as: 'bodyPart'
+                }
+            },
+            {
+                $unwind: '$bodyPart'
+            },
+            {
+                $group: { _id: '$bodyPart.name', symptoms: { $push: '$name' } }
+            },
+            {
+                $project: { _id: 0, bodyPart: '$_id', symptoms: 1 }
+            },
+            {
+                $sort: { bodyPart: 1 }
+            }
+        ]);
+    }
 }
