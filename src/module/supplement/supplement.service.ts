@@ -16,6 +16,9 @@ export class SupplementService {
     ) {
         // populate(this.supplementModel, SupplementData as Supplement[]);
 
+        if (process.env.SKIP_SUGGESTION === 'true') {
+            return;
+        }
         // Send all supplements to the pipe
         this.getAllSupplements().then((supplements) => {
             let data = JSON.stringify(supplements);
