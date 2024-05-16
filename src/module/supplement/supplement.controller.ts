@@ -8,7 +8,6 @@ export class SupplementController {
 
     @Get()
     async getSupplements(@Query() query: SupplementQueryDto) {
-        console.log(query);
         return await this.supplementService.findByName(query.q, query.exact);
     }
 }
