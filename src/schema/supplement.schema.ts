@@ -32,7 +32,7 @@ class SupplementInteraction {
 
 @Schema()
 export class Supplement {
-    @Prop()
+    @Prop({ required: true })
     name: string;
 
     @Prop()
