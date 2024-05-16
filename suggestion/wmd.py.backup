@@ -6,10 +6,10 @@ import gensim.downloader as api
 from gensim.similarities import WmdSimilarity
 import numpy as np
 import json
-import multiprocessing 
 
 class DataPreprocessor:
     def __init__(self):
+        download('stopwords')
         self.stop_words = stopwords.words('english')
         self.porter = PorterStemmer()
 
@@ -24,7 +24,6 @@ class SimilarityCalculator:
     def __init__(self, model_path='../cleaned_data/splm_cleaned.json'):
         print('Loading model...')
         self.model = api.load('word2vec-google-news-300')
-        download('stopwords')
         with open(model_path) as f:
             self.data = json.load(f)
         print('Model loaded.')
@@ -32,8 +31,8 @@ class SimilarityCalculator:
         self.processed_descriptions = [DataPreprocessor().preprocess_paragraph(d) for d in self.descriptions]
         self.wmd_instances = [WmdSimilarity(desc, self.model, num_best=4) for desc in self.processed_descriptions]
         print('Instances created.')
-    
-    def get_avg_sims(self, query, threshold, num_processes=2):
+
+    def get_avg_sims(self, query, threshold):
         avg_sims = []
         for instance in self.wmd_instances:
             sims = instance.get_similarities(query)

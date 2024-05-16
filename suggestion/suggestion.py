@@ -42,12 +42,8 @@ class Data:
         # convert out to string
         return json.dumps(out)
 
-
-class SubProces:
-    pass    
-
 class Communicator:
-    def __init__(self) -> None:
+    def __init__(self):
         self.pyPipe = '/tmp/pyPipeSimpill'
         self.jsPipe = '/tmp/jsPipeSimpill'
         self.childPids = []
@@ -61,6 +57,7 @@ class Communicator:
         os.mkfifo(self.jsPipe)
 
         self.data = SimilarityCalculator('../data/cleaned_data/splm_cleaned1.json')
+        self.MAX_READING_PIPE = 2**30 # 1GB
 
     def writePipe(self, msg):
         fd = os.open(self.pyPipe, os.O_RDWR)
@@ -69,7 +66,7 @@ class Communicator:
 
     def readPipe(self):
         fd = os.open(self.jsPipe, os.O_RDWR)
-        x = os.read(fd, 1023).decode().split('|')
+        x = os.read(fd, self.MAX_READING_PIPE).decode().split('|')
         print('read:', x)
         os.close(fd)
         return x
