@@ -41,7 +41,7 @@ export class SupplementService {
         else {
             filter = { name: { $regex: new RegExp(name) } };
         }
-        return await this.supplementModel.find(filter).select('name overview');
+        return await this.supplementModel.find(filter).select('-_id name overview');
     }
 
     /**
