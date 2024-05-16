@@ -21,12 +21,11 @@ class DataPreprocessor:
     
 
 class SimilarityCalculator:
-    def __init__(self, model_path='../cleaned_data/splm_cleaned.json'):
+    def __init__(self, data):
         print('Loading model...')
         self.model = api.load('word2vec-google-news-300')
         download('stopwords')
-        with open(model_path) as f:
-            self.data = json.load(f)
+        self.data = json.loads(data)
         print('Model loaded.')
         self.descriptions = [(str(d['overview']) + str(d['uses'])).lower() for d in self.data]
         self.processed_descriptions = [DataPreprocessor().preprocess_paragraph(d) for d in self.descriptions]

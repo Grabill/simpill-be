@@ -56,8 +56,8 @@ class Communicator:
         os.mkfifo(self.pyPipe)
         os.mkfifo(self.jsPipe)
 
-        self.data = SimilarityCalculator('../data/cleaned_data/splm_cleaned1.json')
-        self.MAX_READING_PIPE = 2**30 # 1GB
+        self.data = None
+        self.MAX_READING_PIPE = 65536 # 64KB
 
     def writePipe(self, msg):
         fd = os.open(self.pyPipe, os.O_RDWR)
@@ -67,7 +67,7 @@ class Communicator:
     def readPipe(self):
         fd = os.open(self.jsPipe, os.O_RDWR)
         x = os.read(fd, self.MAX_READING_PIPE).decode().split('|')
-        print('read:', x)
+        # print('read:', x)
         os.close(fd)
         return x
     
@@ -103,6 +103,17 @@ class Communicator:
 
     
     def run(self):
+        # blocking until data is loaded
+        # hacky code, probably can be improved
+        data = ''
+        while True:
+            if os.path.exists(self.jsPipe):
+                temp = self.readPipe()
+                data += temp[0]
+                if len(temp) > 1:
+                    break
+        print('Received data')
+        self.data = SimilarityCalculator(data)
         while True:
             # remove child pids that have finished
             self.childPids = [pid for pid in self.childPids if os.waitpid(pid, os.WNOHANG) == (0, 0)]

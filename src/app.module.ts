@@ -3,8 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PipeService } from './pipe.service';
 import { SupplementModule } from './module/supplement/supplement.module';
+import { PipeModule } from './pipe.module';
 
 @Module({
     imports: [
@@ -17,9 +17,10 @@ import { SupplementModule } from './module/supplement/supplement.module';
                 process.env.MONGODB_PASSWORD,
             ),
         ),
+        PipeModule,
         SupplementModule,
     ],
     controllers: [AppController],
-    providers: [AppService, PipeService],
+    providers: [AppService],
 })
 export class AppModule {}

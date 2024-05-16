@@ -8,7 +8,7 @@
     "scripts": {
         "build": "nest build",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-        "start": "nest start",
+        "start": "python suggestion/suggestion.py & nest start",
         "start:dev": "nest start --watch",
         "start:debug": "nest start --debug --watch",
         "start:prod": "node dist/main",
@@ -29,9 +29,7 @@
         "cache-manager": "^5.5.2",
         "class-transformer": "^0.5.1",
         "class-validator": "^0.14.1",
-        "fs": "^0.0.1-security",
         "mongoose": "^8.3.2",
-        "net": "^1.0.2",
         "reflect-metadata": "^0.2.0",
         "rxjs": "^7.8.1"
     },
