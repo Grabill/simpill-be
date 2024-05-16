@@ -3,6 +3,33 @@ import { HydratedDocument } from 'mongoose';
 
 export type SupplementDocument = HydratedDocument<Supplement>;
 
+class SupplementUse {
+    @Prop()
+    title: string;
+
+    @Prop()
+    uses: string;
+}
+
+class SupplementInteractionPair {
+    @Prop()
+    subtitle: string;
+
+    @Prop()
+    content: string;
+}
+
+class SupplementInteraction {
+    @Prop()
+    title: string;
+
+    @Prop()
+    annotation: string;
+
+    @Prop([SupplementInteractionPair])
+    list: SupplementInteractionPair[];
+}
+
 @Schema()
 export class Supplement {
     @Prop()
@@ -11,14 +38,14 @@ export class Supplement {
     @Prop()
     overview: string;
 
-    @Prop()
-    uses: string;
+    @Prop([SupplementUse])
+    uses: SupplementUse[];
 
     @Prop()
     side_effects: string;
 
-    @Prop()
-    interactions: string;
+    @Prop([SupplementInteraction])
+    interactions: SupplementInteraction[];
 
     @Prop()
     dosing: string;
