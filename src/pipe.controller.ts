@@ -8,10 +8,12 @@ export class PipeController {
 
     @Get('/:pid')
     async getHello(@Param('pid') pid: string): Promise<string> {
-        console.log('pid:', pid);
+        console.log('nodejs pid:', pid);
         // this.pipeService.write2Pipe(pid + ' treament of fever and cough|');
         this.pipeService.write2Pipe(new PipeQuery(pid));
+        // console.log('nodejs sent:', pid);
         const data = await this.pipeService.listen2Pipe();
+        // console.log('nodejs received:', data);
         return data;
     }
 }

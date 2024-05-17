@@ -8,7 +8,7 @@
     "scripts": {
         "build": "nest build",
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-        "start": "python suggestion/suggestion.py & nest start",
+        "start": "nest start",
         "start:dev": "SKIP_SUGGESTION=true nest start --watch",
         "start:dev:p": "SKIP_SUGGESTION=true nest start",
         "start:debug": "nest start --debug --watch",

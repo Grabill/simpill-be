@@ -114,6 +114,7 @@ class Communicator:
                     break
         print('Received data')
         self.data = SimilarityCalculator(data)
+        # print(self.data.data[0])
         while True:
             # remove child pids that have finished
             self.childPids = [pid for pid in self.childPids if os.waitpid(pid, os.WNOHANG) == (0, 0)]

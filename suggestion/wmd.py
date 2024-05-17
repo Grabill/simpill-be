@@ -54,42 +54,42 @@ class SimilarityCalculator:
         print('Query: ', qStr)
         return self.get_similarity(qStr)
     
-def clean_data(self, data):
-    cleaned_data = []
+    def clean_data(self, data):
+        cleaned_data = []
 
-    for entry in data:
-        try:
-            if not entry.get('uses') or len(entry['uses']) == 0:
-                continue
+        for entry in data:
+            try:
+                if not entry.get('uses') or len(entry['uses']) == 0:
+                    continue
 
-            cleaned_entry = {}
+                cleaned_entry = {}
 
-            # Clean 'overview' field
-            overview_text = entry['overview'] if entry.get('overview') else ''
-            cleaned_entry['overview'] = BeautifulSoup(overview_text, 'html.parser').get_text()
+                # Clean 'overview' field
+                overview_text = entry['overview'] if entry.get('overview') else ''
+                cleaned_entry['overview'] = BeautifulSoup(overview_text, 'html.parser').get_text()
 
-            # Extract and clean 'uses' field
-            uses_text = ''
-            for use in entry['uses']:
-                if all(key in use for key in ['title', 'uses']):
-                    title = use['title']
-                    if any(word.lower() in title.lower() for word in ['ineffective', 'not recommended', 'insufficient']):
-                        print('Skipping...')
-                        continue
+                # Extract and clean 'uses' field
+                uses_text = ''
+                for use in entry['uses']:
+                    if all(key in use for key in ['title', 'uses']):
+                        title = use['title']
+                        if any(word.lower() in title.lower() for word in ['ineffective', 'not recommended', 'insufficient']):
+                            print('Skipping...')
+                            continue
 
-                    li_tags = BeautifulSoup(use['uses'], 'html.parser').find_all('li')
-                    symptoms = [li.get_text(strip=True) for li in li_tags]
-                    uses_text += ' '.join([f"{title} {symptom}" for symptom in symptoms])
+                        li_tags = BeautifulSoup(use['uses'], 'html.parser').find_all('li')
+                        symptoms = [li.get_text(strip=True) for li in li_tags]
+                        uses_text += ' '.join([f"{title} {symptom}" for symptom in symptoms])
 
-            if uses_text:
-                cleaned_entry['uses'] = uses_text
-                cleaned_data.append(cleaned_entry)
+                if uses_text:
+                    cleaned_entry['uses'] = uses_text
+                    cleaned_data.append(cleaned_entry)
 
-        except Exception as e:
-            print('Error: ', e)
-            raise e
+            except Exception as e:
+                print('Error: ', e)
+                raise e
 
-    return cleaned_data
+        return cleaned_data
 
     
 if __name__ == "__main__":

@@ -10,6 +10,10 @@ export class PipeService {
     private readonly pipePath = '/tmp/jsPipeSimpill';
     private readonly otherPipePath = '/tmp/pyPipeSimpill';
     private readonly logger = new Logger(PipeService.name);
+    private readPipe: net.Socket;
+    private writePipe: net.Socket;
+    private fhRead: fs.FileHandle;
+    private fhWrite: fs.FileHandle;
     public readonly MAX_PIPE_SIZE = 65536;
 
     constructor() {
@@ -27,6 +31,27 @@ export class PipeService {
         else {
             this.logger.log('Pipe found');
         }
+        
+        this.initPipe().then(() => {
+            this.logger.log('Pipe initialized');
+        });
+    }
+
+    // I am not sure if this is the correct way to destroy the pipe
+    destroy(): void {
+        this.readPipe.destroy();
+        this.writePipe.destroy();
+        this.fhRead.close();
+        this.fhWrite.close();
+    }
+
+    // initialize the readPipe by opening the pipe file and creating a socket
+    async initPipe(): Promise<void> {
+        this.fhRead = await fs.open(this.otherPipePath, fs.constants.O_RDONLY | fs.constants.O_NONBLOCK);
+        this.readPipe = new net.Socket({ fd: this.fhRead.fd });
+
+        this.fhWrite = await fs.open(this.pipePath, fs.constants.O_RDWR | fs.constants.O_NONBLOCK);
+        this.writePipe = new net.Socket({ fd: this.fhWrite.fd, readable: false });
     }
 
     /**
@@ -36,13 +61,13 @@ export class PipeService {
      * @returns void
      */
     async write2Pipe(data: PipeQuery): Promise<void> {
-        const fh = await fs.open(this.pipePath, fs.constants.O_RDWR | fs.constants.O_NONBLOCK);
-        const pipe = new net.Socket({ fd: fh.fd, readable: false });
-        const status = pipe.write(data.toString());
+        // const fh = await fs.open(this.pipePath, fs.constants.O_RDWR | fs.constants.O_NONBLOCK);
+        // const pipe = new net.Socket({ fd: fh.fd, readable: false });
+        const status = this.writePipe.write(data.toString());
         if (!status) {
-            await once(pipe, 'drain');
+            await once(this.writePipe, 'drain');
         }
-        await fh.close();
+        // await fh.close();
     }
 
     /**
@@ -50,16 +75,18 @@ export class PipeService {
      * @returns data from the pipe
      */
     async listen2Pipe(): Promise<string> {
-        const fh = await fs.open(this.otherPipePath, fs.constants.O_RDONLY | fs.constants.O_NONBLOCK);
-        const pipe = new net.Socket({ fd: fh.fd });
+        // const fh = await fs.open(this.otherPipePath, fs.constants.O_RDONLY | fs.constants.O_NONBLOCK);
+        // const pipe = new net.Socket({ fd: fh.fd });
+        // console.log(fh);
         return new Promise((resolve, reject) => {
-            pipe.on('data', (data) => {
+            this.readPipe.on('data', (data) => {
                 resolve(data.toString());
             });
-            pipe.on('error', (err) => {
+            this.readPipe.on('error', (err) => {
                 reject(err);
             });
-            fh.close();
+            // fh.close();
+            // cannot close the fifo file here
         });
     }
 }

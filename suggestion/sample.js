@@ -19,3 +19,5 @@ fs.open(pipepath, fs.constants.O_WRONLY, (err, fd) => {
       console.log('Written:', written);
   });
 });
+
+// while (true) { }
