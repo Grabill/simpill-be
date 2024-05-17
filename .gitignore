@@ -60,3 +60,6 @@ package-lock.json
 # python
  __pycache__/
  *.pyc
+
+# dump file
+results.json

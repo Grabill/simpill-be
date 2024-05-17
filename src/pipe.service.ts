@@ -1,9 +1,9 @@
 import { once } from 'events';
-import { existsSync } from 'fs';
 import * as fs from 'fs/promises';
 import * as net from 'net';
 import { Injectable, Logger } from '@nestjs/common';
 import { PipeQuery } from './pipe-query';
+import { PipeResult } from './pipe-result';
 
 @Injectable()
 export class PipeService {
@@ -15,29 +15,37 @@ export class PipeService {
     private fhRead: fs.FileHandle;
     private fhWrite: fs.FileHandle;
     public readonly MAX_PIPE_SIZE = 65536;
+    public results: Map<string, PipeResult> = new Map();
+    private readonly TIMEOUT = 30000; // 30 seconds
+    private readonly RESULTS_LIMIT = 500;
+    private readonly FLUSH_FACTOR = 0.5;
 
     constructor() {
         if (process.env.SKIP_SUGGESTION === 'true') {
             return;
         }
-        setTimeout(() => {
-            while (!existsSync(this.pipePath)) {
-                this.logger.log('Waiting for pipe...');
-            }
-        }, 1000);
-        if (!existsSync(this.pipePath)) {
-            throw new Error('Pipe not found');
-        }
-        else {
-            this.logger.log('Pipe found');
-        }
-        
+        // this.logger.log('Waiting for pipe...');
+        // let waitForPipe = true;
+        // setTimeout(() => {
+        //     waitForPipe = false;
+        // }, 5000);
+        // while (waitForPipe) {
+        //     if (existsSync(this.pipePath)) {
+        //         break;
+        //     }
+        // }
+        // if (!existsSync(this.pipePath)) {
+        //     this.logger.error('Pipe not found');
+        //     return;
+        // }
+        // this.logger.log('Pipe found');
         this.initPipe().then(() => {
             this.logger.log('Pipe initialized');
         });
     }
 
     // I am not sure if this is the correct way to destroy the pipe
+    // Of course it doesn't do anything
     destroy(): void {
         this.readPipe.destroy();
         this.writePipe.destroy();
@@ -45,13 +53,34 @@ export class PipeService {
         this.fhWrite.close();
     }
 
-    // initialize the readPipe by opening the pipe file and creating a socket
-    async initPipe(): Promise<void> {
+    /**
+     * Initialize the pipe
+     */
+    private async initPipe(): Promise<void> {
         this.fhRead = await fs.open(this.otherPipePath, fs.constants.O_RDONLY | fs.constants.O_NONBLOCK);
         this.readPipe = new net.Socket({ fd: this.fhRead.fd });
 
         this.fhWrite = await fs.open(this.pipePath, fs.constants.O_RDWR | fs.constants.O_NONBLOCK);
         this.writePipe = new net.Socket({ fd: this.fhWrite.fd, readable: false });
+        
+        // listen for data from the pipe
+        this.readPipe.on('data', (data) => {
+            let str = data.toString();
+            console.log('str:', str);
+            const queryStrs = str.split('|');
+            for (let queryStr of queryStrs) {
+                const id = queryStr.slice(0, 36);
+                const result = queryStr.slice(36);
+                this.results.set(id, { data: result, id, timestamp: Date.now() });
+            }
+            if (this.results.size > this.RESULTS_LIMIT) {
+                this.results = new Map(
+                    Array.from(this.results)
+                    .sort((a, b) => a[1].timestamp - b[1].timestamp)
+                    .slice(0, this.RESULTS_LIMIT * this.FLUSH_FACTOR)
+                );
+            }
+        });
     }
 
     /**
@@ -71,22 +100,43 @@ export class PipeService {
     }
 
     /**
-     * Listen to the pipe
-     * @returns data from the pipe
+     * Wait for the result of a query
+     * @param id the id of the query
+     * @returns the result of the query
      */
-    async listen2Pipe(): Promise<string> {
-        // const fh = await fs.open(this.otherPipePath, fs.constants.O_RDONLY | fs.constants.O_NONBLOCK);
-        // const pipe = new net.Socket({ fd: fh.fd });
-        // console.log(fh);
+    async wait4Result(id: string): Promise<PipeResult> {
         return new Promise((resolve, reject) => {
-            this.readPipe.on('data', (data) => {
-                resolve(data.toString());
-            });
-            this.readPipe.on('error', (err) => {
-                reject(err);
-            });
-            // fh.close();
-            // cannot close the fifo file here
+            const interval = setInterval(() => {
+                const result = this.results.get(id);
+                if (result) {
+                    clearInterval(interval);
+                    resolve(result);
+                }
+            }, 1000);
+            setTimeout(() => {
+                clearInterval(interval);
+                reject(`timeout: ${id}`);
+            }, this.TIMEOUT);
         });
     }
+
+    // /**
+    //  * Listen to the pipe
+    //  * @returns data from the pipe
+    //  */
+    // async listen2Pipe(): Promise<string> {
+    //     // const fh = await fs.open(this.otherPipePath, fs.constants.O_RDONLY | fs.constants.O_NONBLOCK);
+    //     // const pipe = new net.Socket({ fd: fh.fd });
+    //     // console.log(fh);
+    //     return new Promise((resolve, reject) => {
+    //         this.readPipe.on('data', (data) => {
+    //             resolve(data.toString());
+    //         });
+    //         this.readPipe.on('error', (err) => {
+    //             reject(err);
+    //         });
+    //         // fh.close();
+    //         // cannot close the fifo file here
+    //     });
+    // }
 }

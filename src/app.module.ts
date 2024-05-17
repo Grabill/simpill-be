@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { SupplementModule } from './module/supplement/supplement.module';
 import { PipeModule } from './pipe.module';
 import { SymptomModule } from './module/symptom/symptom.module';
+import { SuggestionModule } from './module/suggestion/suggestion.module';
 
 @Module({
     imports: [
@@ -20,7 +21,8 @@ import { SymptomModule } from './module/symptom/symptom.module';
         ),
         PipeModule,
         SupplementModule,
-        SymptomModule
+        SymptomModule,
+        SuggestionModule
     ],
     controllers: [AppController],
     providers: [AppService],

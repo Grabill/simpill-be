@@ -22,7 +22,7 @@ export class SupplementService {
         // Send all supplements to the pipe
         this.getAllSupplements().then((supplements) => {
             let data = JSON.stringify(supplements);
-            this.pipeService.write2Pipe(new PipeQuery(data));
+            this.pipeService.write2Pipe(new PipeQuery(data, false));
         });
     }
 
