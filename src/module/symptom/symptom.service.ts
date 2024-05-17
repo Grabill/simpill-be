@@ -42,10 +42,10 @@ export class SymptomService {
                 $unwind: '$bodyPart'
             },
             {
-                $group: { _id: '$bodyPart.name', symptoms: { $push: '$name' } }
+                $group: { _id: { name: '$bodyPart.name', _id: '$bodyPart._id' }, symptoms: { $push: { name: '$name', _id: '$_id' } } }
             },
             {
-                $project: { _id: 0, bodyPart: '$_id', symptoms: 1 }
+                $project: { bodyPart: '$_id', symptoms: 1, _id: 0 }
             },
             {
                 $sort: { bodyPart: 1 }
