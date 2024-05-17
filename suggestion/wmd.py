@@ -52,6 +52,7 @@ class SimilarityCalculator:
     
     def query(self, qStr):
         print('Query: ', qStr)
+        # res = res.get_similarity(qStr)
         return self.get_similarity(qStr)
     
     def clean_data(self, data):
@@ -64,6 +65,9 @@ class SimilarityCalculator:
 
                 cleaned_entry = {}
 
+                # Clean 'name' field
+                cleaned_entry['name'] = entry['name']
+
                 # Clean 'overview' field
                 overview_text = entry['overview'] if entry.get('overview') else ''
                 cleaned_entry['overview'] = BeautifulSoup(overview_text, 'html.parser').get_text()
@@ -74,7 +78,7 @@ class SimilarityCalculator:
                     if all(key in use for key in ['title', 'uses']):
                         title = use['title']
                         if any(word.lower() in title.lower() for word in ['ineffective', 'not recommended', 'insufficient']):
-                            print('Skipping...')
+                            # print('Skipping...')
                             continue
 
                         li_tags = BeautifulSoup(use['uses'], 'html.parser').find_all('li')

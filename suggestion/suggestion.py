@@ -89,7 +89,10 @@ class Communicator:
 
         bm25 = BM25(qStr, res)
         res = bm25.queryBM25()
-        top5 = res[:5]
+        # get list of name from res[:5]
+        # print(res)
+        # top5 = res[:5]
+        top5 = [i['description']['name'] for i in res[:5]]
 
         # print(id, ':', str(res))
         self.writePipe(id + ' ' + str(top5))
