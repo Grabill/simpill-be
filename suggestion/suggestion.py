@@ -95,7 +95,7 @@ class Communicator:
         top5 = [i['description']['name'] for i in res[:5]]
 
         # print(id, ':', str(res))
-        self.writePipe(id + ' ' + str(top5))
+        self.writePipe(id + ' ' + json.dumps(top5))
 
 
         print('query processed:', qStr)

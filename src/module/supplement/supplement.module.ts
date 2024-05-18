@@ -8,5 +8,6 @@ import { SupplementService } from './supplement.service';
     imports: [MongooseModule.forFeature([{ name: Supplement.name, schema: SupplementSchema }])],
     controllers: [SupplementController],
     providers: [SupplementService],
+    exports: [SupplementService],
 })
 export class SupplementModule {}

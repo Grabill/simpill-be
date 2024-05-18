@@ -67,11 +67,12 @@ export class PipeService {
         this.readPipe.on('data', (data) => {
             let str = data.toString();
             console.log('str:', str);
-            const queryStrs = str.split('|');
-            for (let queryStr of queryStrs) {
+            const queryStrs = str.split('|').slice(0, -1);
+            for (const queryStr of queryStrs) {
                 const id = queryStr.slice(0, 36);
-                const result = queryStr.slice(36);
-                this.results.set(id, { data: result, id: id });
+                const result = queryStr.slice(36).trimStart().replace('"', '\"');
+                const data = JSON.parse(result);
+                this.results.set(id, { data: data, id: id });
             }
             if (this.results.size > this.RESULTS_LIMIT) {
                 this.results = new Map(

@@ -1,4 +1,4 @@
 export interface PipeResult {
-    data: string;
+    data: string[];
     id: string;
 }

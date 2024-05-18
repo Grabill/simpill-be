@@ -5,6 +5,7 @@ import { Supplement } from 'src/schema/supplement.schema';
 import { SupplementQueryResultDto } from './dto/supplement-query-result.dto';
 import { PipeService } from 'src/pipe.service';
 import { PipeQuery } from 'src/pipe-query';
+import { PipeResult } from 'src/pipe-result';
 // import { populate } from 'src/util/database-helper';
 // import * as SupplementData from './data/splm_cleaned.json';
 
@@ -38,6 +39,30 @@ export class SupplementService {
         const filter: FilterQuery<Supplement> = exact ? { name: name } : { name: { $regex: new RegExp(name) } };
         const selection = verbose ? '-_id' : '-_id name overview';
         return await this.supplementModel.find(filter).select(selection);
+    }
+
+    /**
+     * Find supplements by their names from PipeResult (case insensitive)
+     * @param names an array of supplement names
+     * @returns an array of supplements that match the names
+     */
+    async findByPipeResult(pipeResult: PipeResult) : Promise<SupplementQueryResultDto[]> {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const names = pipeResult.data;
+                const supplements: SupplementQueryResultDto[] = [];
+                for (const name of names) {
+                    const supplement = await this.supplementModel.findOne({ name: name.toUpperCase() }).select('-_id name overview');
+                    if (supplement) {
+                        supplements.push(supplement);
+                    }
+                }
+                resolve(supplements);
+            }
+            catch (err) {
+                reject(err);
+            }
+        });
     }
 
     /**
