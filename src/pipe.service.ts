@@ -71,13 +71,12 @@ export class PipeService {
             for (let queryStr of queryStrs) {
                 const id = queryStr.slice(0, 36);
                 const result = queryStr.slice(36);
-                this.results.set(id, { data: result, id, timestamp: Date.now() });
+                this.results.set(id, { data: result, id: id });
             }
             if (this.results.size > this.RESULTS_LIMIT) {
                 this.results = new Map(
                     Array.from(this.results)
-                    .sort((a, b) => a[1].timestamp - b[1].timestamp)
-                    .slice(0, this.RESULTS_LIMIT * this.FLUSH_FACTOR)
+                    .slice(this.RESULTS_LIMIT * this.FLUSH_FACTOR)
                 );
             }
         });
