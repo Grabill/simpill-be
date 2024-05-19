@@ -2,6 +2,7 @@ from rank_bm25 import BM25Okapi
 import json, nltk, os, time
 from wmd import SimilarityCalculator
 from bm25 import BM25
+import time
 nltk.download('punkt')
 
 class Data:
@@ -85,14 +86,23 @@ class Communicator:
         id = qStrSplit[0]
         qStr = ' '.join(qStrSplit[1:])
 
+        start = time.time()
         res = self.data.query(qStr)
+        end = time.time()
+        print('WMD: ', end - start)
 
+        with open('results.json', 'w') as f:
+            json.dump(res, f, indent=4)
+
+        start = time.time()
         bm25 = BM25(qStr, res)
         res = bm25.queryBM25()
+        end = time.time()
+        print('BM25: ', end - start)
         # get list of name from res[:5]
         # print(res)
         # top5 = res[:5]
-        top5 = [i['description']['name'] for i in res[:5]]
+        top5 = [i['description']['name'] for i in res[:10]]
 
         # print(id, ':', str(res))
         self.writePipe(id + ' ' + json.dumps(top5))
@@ -117,7 +127,7 @@ class Communicator:
                     break
         print('Received data')
         self.data = SimilarityCalculator(data)
-        # print(self.data.data[0])
+        # self.data = data
         while True:
             # remove child pids that have finished
             self.childPids = [pid for pid in self.childPids if os.waitpid(pid, os.WNOHANG) == (0, 0)]

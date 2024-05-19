@@ -10,7 +10,7 @@ wl = WordNetLemmatizer()
 
 class BM25:
     def __init__(self, query, data): # data is a list of strings
-        self.query = self.processData(query)
+        self.query = self.processData(query.replace('Effective for', ''))
         self.data = data
         self.tokenized_corpus = self.inputData(data)
         self.bm25 = BM25Okapi(self.tokenized_corpus)

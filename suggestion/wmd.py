@@ -6,6 +6,7 @@ import gensim.downloader as api
 from gensim.similarities import WmdSimilarity
 import numpy as np
 import json
+from scipy.spatial.distance import cdist
 from bs4 import BeautifulSoup
 
 class DataPreprocessor:
@@ -20,6 +21,7 @@ class DataPreprocessor:
         return [self.preprocess_sentence(sentence) for sentence in sent_tokenize(paragraph)]
     
 
+# WMD: https://proceedings.mlr.press/v37/kusnerb15.pdf
 class SimilarityCalculator:
     def __init__(self, data):
         print('Loading model...')
@@ -32,8 +34,49 @@ class SimilarityCalculator:
         self.processed_descriptions = [DataPreprocessor().preprocess_paragraph(d) for d in self.descriptions]
         self.wmd_instances = [WmdSimilarity(desc, self.model, num_best=4) for desc in self.processed_descriptions]
         print('Instances created.')
+
+    def get_word_embeddings(self, tokens):
+        return [self.model[word] for word in tokens if word in self.model.key_to_index]
+
+    # paper: https://arxiv.org/pdf/1912.00509
+    def RWMD(self, query_tokens, target_tokens):
+        query_embeddings = self.get_word_embeddings(query_tokens)
+        target_embeddings = self.get_word_embeddings(target_tokens)
+
+        if len(query_embeddings) == 0 or len(target_embeddings) == 0:
+            return float('inf')
+        
+        # Compute the distance matrix between embeddings
+        distance_matrix = cdist(query_embeddings, target_embeddings, metric='euclidean')
+        
+        # Compute forward distance: each word in doc1 to closest word in doc2
+        forward_distance = np.mean(np.min(distance_matrix, axis=1))
+        
+        # Compute backward distance: each word in doc2 to closest word in doc1
+        backward_distance = np.mean(np.min(distance_matrix, axis=0))
+        
+        # RWMD is the maximum of the forward and backward distances
+        rwmd_distance = max(forward_distance, backward_distance)
+
+        # print(rwmd_distance)
+
+        return rwmd_distance
     
-    def get_avg_sims(self, query, threshold, num_processes=2):
+    # dung cho RWMD
+    def get_avg_distances(self, query, threshold=5.0, num_processes=2):
+        avg_distances = []
+        for desc in self.processed_descriptions:
+            distances = []
+            for sentence in desc:
+                distances.append(self.RWMD(query, sentence))
+            distances = [distance for distance in distances if distance < threshold]
+            avg_distances.append(np.mean(distances) if len(distances) > 0 else 0)
+        # print(avg_distances)
+
+        return avg_distances
+    
+    # dung cho WMD
+    def get_avg_sims(self, query, threshold=0.43):
         avg_sims = []
         for instance in self.wmd_instances:
             sims = instance.get_similarities(query)
@@ -41,12 +84,13 @@ class SimilarityCalculator:
             avg_sims.append(np.mean(sims) if len(sims) > 0 else 0)
         return avg_sims
 
-    def get_similarity(self, query, threshold=0.43):
+    def get_similarity(self, query):
         print('Calculating similarity...')
         query = DataPreprocessor().preprocess_sentence(query)
-        avg_sims = self.get_avg_sims(query, threshold)
-        sorted_indices = np.argsort(avg_sims)[::-1]
-        results = [{'description': self.data[i], 'similarity': avg_sims[i]} for i in sorted_indices]
+        avg_distances = self.get_avg_distances(query)
+        # avg_distances = self.get_avg_sims(query)
+        sorted_indices = np.argsort(avg_distances)
+        results = [{'description': self.data[i], 'distance': avg_distances[i]} for i in sorted_indices]
         print('Similarity calculated.')
         return results
     
