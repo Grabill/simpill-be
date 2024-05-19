@@ -57,11 +57,37 @@ export class PipeService {
      * Initialize the pipe
      */
     private async initPipe(): Promise<void> {
-        this.fhRead = await fs.open(this.otherPipePath, fs.constants.O_RDONLY | fs.constants.O_NONBLOCK);
-        this.readPipe = new net.Socket({ fd: this.fhRead.fd });
+        this.fhRead = await fs.open(this.otherPipePath, fs.constants.O_RDWR | fs.constants.O_NONBLOCK);
+        this.readPipe = new net.Socket({ fd: this.fhRead.fd, allowHalfOpen: true, writable: false });
 
         this.fhWrite = await fs.open(this.pipePath, fs.constants.O_RDWR | fs.constants.O_NONBLOCK);
         this.writePipe = new net.Socket({ fd: this.fhWrite.fd, readable: false });
+
+        this.readPipe.on('data', (buffer) => {
+            let str = buffer.toString();
+            console.log('str:', str);
+            const queryStrs = str.split('|').slice(0, -1);
+            for (const queryStr of queryStrs) {
+                const id = queryStr.slice(0, 36);
+                const result = queryStr.slice(36).trimStart().replace('"', '\"');
+                const data = JSON.parse(result);
+                this.results.set(id, { data: data, id: id });
+            }
+            if (this.results.size > this.RESULTS_LIMIT) {
+                this.results = new Map(
+                    Array.from(this.results)
+                    .slice(this.RESULTS_LIMIT * this.FLUSH_FACTOR)
+                );
+            }
+        });
+        this.readPipe.on('end', (x) => {
+            console.log('closed. hasError: ', x);
+            console.log('data listener status: ', this.readPipe.listenerCount('data'));
+        });
+        this.readPipe.on('close', (x) => {
+            console.log('closed. hasError: ', x);
+            console.log('data listener status: ', this.readPipe.listenerCount('data'));
+        });
     }
 
     /**
@@ -92,27 +118,6 @@ export class PipeService {
                 if (result) {
                     clearInterval(interval);
                     resolve(result);
-                }
-                else {
-                    if (this.readPipe.listeners('data').length === 0) {
-                        this.readPipe.once('data', (buffer) => {
-                            let str = buffer.toString();
-                            console.log('str:', str);
-                            const queryStrs = str.split('|').slice(0, -1);
-                            for (const queryStr of queryStrs) {
-                                const id = queryStr.slice(0, 36);
-                                const result = queryStr.slice(36).trimStart().replace('"', '\"');
-                                const data = JSON.parse(result);
-                                this.results.set(id, { data: data, id: id });
-                            }
-                            if (this.results.size > this.RESULTS_LIMIT) {
-                                this.results = new Map(
-                                    Array.from(this.results)
-                                    .slice(this.RESULTS_LIMIT * this.FLUSH_FACTOR)
-                                );
-                            }
-                        });
-                    }
                 }
             }, 1000);
             setTimeout(() => {
