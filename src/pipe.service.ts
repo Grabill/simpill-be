@@ -16,7 +16,7 @@ export class PipeService {
     private fhWrite: fs.FileHandle;
     public readonly MAX_PIPE_SIZE = 65536;
     public results: Map<string, PipeResult> = new Map();
-    private readonly TIMEOUT = 30000; // 30 seconds
+    private readonly TIMEOUT = 30000; // 60 seconds
     private readonly RESULTS_LIMIT = 500;
     private readonly FLUSH_FACTOR = 0.5;
 
@@ -62,25 +62,6 @@ export class PipeService {
 
         this.fhWrite = await fs.open(this.pipePath, fs.constants.O_RDWR | fs.constants.O_NONBLOCK);
         this.writePipe = new net.Socket({ fd: this.fhWrite.fd, readable: false });
-        
-        // listen for data from the pipe
-        this.readPipe.on('data', (data) => {
-            let str = data.toString();
-            console.log('str:', str);
-            const queryStrs = str.split('|').slice(0, -1);
-            for (const queryStr of queryStrs) {
-                const id = queryStr.slice(0, 36);
-                const result = queryStr.slice(36).trimStart().replace('"', '\"');
-                const data = JSON.parse(result);
-                this.results.set(id, { data: data, id: id });
-            }
-            if (this.results.size > this.RESULTS_LIMIT) {
-                this.results = new Map(
-                    Array.from(this.results)
-                    .slice(this.RESULTS_LIMIT * this.FLUSH_FACTOR)
-                );
-            }
-        });
     }
 
     /**
@@ -105,12 +86,33 @@ export class PipeService {
      * @returns the result of the query
      */
     async wait4Result(id: string): Promise<PipeResult> {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             const interval = setInterval(() => {
                 const result = this.results.get(id);
                 if (result) {
                     clearInterval(interval);
                     resolve(result);
+                }
+                else {
+                    if (this.readPipe.listeners('data').length === 0) {
+                        this.readPipe.once('data', (buffer) => {
+                            let str = buffer.toString();
+                            console.log('str:', str);
+                            const queryStrs = str.split('|').slice(0, -1);
+                            for (const queryStr of queryStrs) {
+                                const id = queryStr.slice(0, 36);
+                                const result = queryStr.slice(36).trimStart().replace('"', '\"');
+                                const data = JSON.parse(result);
+                                this.results.set(id, { data: data, id: id });
+                            }
+                            if (this.results.size > this.RESULTS_LIMIT) {
+                                this.results = new Map(
+                                    Array.from(this.results)
+                                    .slice(this.RESULTS_LIMIT * this.FLUSH_FACTOR)
+                                );
+                            }
+                        });
+                    }
                 }
             }, 1000);
             setTimeout(() => {
