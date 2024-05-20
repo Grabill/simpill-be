@@ -3,16 +3,31 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 import numpy as np
 import json, nltk
+<<<<<<< HEAD:suggestion/bm25.py
 from bs4 import BeautifulSoup
+=======
+from .suggestor import Suggestor
+>>>>>>> fa216a611bf63295f24747f8deae55dc12385b97:suggestion/algorithms/bm25.py
 
 nltk.download('wordnet')
 wl = WordNetLemmatizer()
 
 
+<<<<<<< HEAD:suggestion/bm25.py
 class BM25:
     def __init__(self, query, data): # data is a list of strings
         self.query = self.processData(query.replace('effective use ', '').lower())
         # self.data = self.cleanData(json.loads(data))
+=======
+class BM25(Suggestor):
+    def __init__(self): # data is a list of strings
+        self.data = []
+        self.tokenized_corpus = []
+        self.bm25 = None
+
+    def loadData(self, data: list) -> None:
+        # self.queryStr = self.processData(queryStr)
+>>>>>>> fa216a611bf63295f24747f8deae55dc12385b97:suggestion/algorithms/bm25.py
         self.data = data
         self.tokenized_corpus = self.inputData(self.data)
         self.bm25 = BM25Okapi(self.tokenized_corpus)
@@ -30,8 +45,8 @@ class BM25:
         lemmatized_data = [wl.lemmatize(word) for word in wordtokenized_data]
         return lemmatized_data
     
-    def queryBM25(self):
-        scores = self.bm25.get_scores(self.query)
+    def query(self, queryStr: str) -> list:
+        scores = self.bm25.get_scores(queryStr)
         sorted_indices = np.argsort(scores)[::-1]
         results = [self.data[i] for i in sorted_indices]
 

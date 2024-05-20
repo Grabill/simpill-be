@@ -8,6 +8,7 @@ import numpy as np
 import json
 from scipy.spatial.distance import cdist
 from bs4 import BeautifulSoup
+from .suggestor import Suggestor
 
 class DataPreprocessor:
     def __init__(self):
@@ -21,12 +22,23 @@ class DataPreprocessor:
         return [self.preprocess_sentence(sentence) for sentence in sent_tokenize(paragraph)]
     
 
+<<<<<<< HEAD:suggestion/wmd.py
 # WMD: https://proceedings.mlr.press/v37/kusnerb15.pdf
 class SimilarityCalculator:
     def __init__(self, data):
+=======
+class SimilarityCalculator(Suggestor):
+    def __init__(self):
+>>>>>>> fa216a611bf63295f24747f8deae55dc12385b97:suggestion/algorithms/wmd.py
         print('Loading model...')
         self.model = api.load('word2vec-google-news-300')
         download('stopwords')
+        self.data = []
+        self.descriptions = []
+        self.processed_descriptions = []
+        self.wmd_instances = []
+
+    def loadData(self, data):
         data = json.loads(data)
         self.data = self.clean_data(data)
         print('Model loaded.')
