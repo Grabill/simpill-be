@@ -9,6 +9,7 @@ import json
 from scipy.spatial.distance import cdist
 from bs4 import BeautifulSoup
 from .suggestor import Suggestor
+from .utils import printLog
 
 class DataPreprocessor:
     def __init__(self):
@@ -24,7 +25,7 @@ class DataPreprocessor:
 
 class SimilarityCalculator(Suggestor):
     def __init__(self):
-        print('Loading model...')
+        printLog('Loading model...')
         self.model = api.load('word2vec-google-news-300')
         download('stopwords')
         self.data = []
@@ -35,11 +36,11 @@ class SimilarityCalculator(Suggestor):
     def loadData(self, data):
         data = json.loads(data)
         self.data = self.clean_data(data)
-        print('Model loaded.')
+        printLog('Model loaded.')
         self.descriptions = [(str(d['overview']) + str(d['uses'])).lower() for d in self.data]
         self.processed_descriptions = [DataPreprocessor().preprocess_paragraph(d) for d in self.descriptions]
         self.wmd_instances = [WmdSimilarity(desc, self.model, num_best=4) for desc in self.processed_descriptions]
-        print('Instances created.')
+        printLog('Instances created.')
 
     def get_word_embeddings(self, tokens):
         return [self.model[word] for word in tokens if word in self.model.key_to_index]
@@ -64,7 +65,7 @@ class SimilarityCalculator(Suggestor):
         # RWMD is the maximum of the forward and backward distances
         rwmd_distance = max(forward_distance, backward_distance)
 
-        # print(rwmd_distance)
+        # printLog(rwmd_distance)
 
         return rwmd_distance
     
@@ -77,7 +78,7 @@ class SimilarityCalculator(Suggestor):
                 distances.append(self.RWMD(query, sentence))
             distances = [distance for distance in distances if distance < threshold]
             avg_distances.append(np.mean(distances) if len(distances) > 0 else 0)
-        # print(avg_distances)
+        # printLog(avg_distances)
 
         return avg_distances
     
@@ -91,17 +92,17 @@ class SimilarityCalculator(Suggestor):
         return avg_sims
 
     def get_similarity(self, query):
-        print('Calculating similarity...')
+        printLog('Calculating similarity...')
         query = DataPreprocessor().preprocess_sentence(query)
         avg_distances = self.get_avg_distances(query)
         # avg_distances = self.get_avg_sims(query)
         sorted_indices = np.argsort(avg_distances)
         results = [{'description': self.data[i], 'distance': avg_distances[i]} for i in sorted_indices]
-        print('Similarity calculated.')
+        printLog('Similarity calculated.')
         return results
     
     def query(self, qStr):
-        print('Query: ', qStr)
+        printLog('Query: ', qStr)
         # res = res.get_similarity(qStr)
         return self.get_similarity(qStr)
     
@@ -128,7 +129,7 @@ class SimilarityCalculator(Suggestor):
                     if all(key in use for key in ['title', 'uses']):
                         title = use['title']
                         if any(word.lower() in title.lower() for word in ['ineffective', 'not recommended', 'insufficient']):
-                            # print('Skipping...')
+                            # printLog('Skipping...')
                             continue
 
                         li_tags = BeautifulSoup(use['uses'], 'html.parser').find_all('li')
@@ -140,7 +141,7 @@ class SimilarityCalculator(Suggestor):
                     cleaned_data.append(cleaned_entry)
 
             except Exception as e:
-                print('Error: ', e)
+                printLog('Error: ', e)
                 raise e
 
         return cleaned_data

@@ -3,6 +3,7 @@ import json, nltk, os, time
 from algorithms.wmd import SimilarityCalculator
 from algorithms.bm25 import BM25
 from algorithms.suggestor import Suggestor
+from algorithms.utils import printLog
 nltk.download('punkt')
 
 class Communicator():
@@ -26,12 +27,12 @@ class Communicator():
     def writePipe(self, msg):
         fd = os.open(self.pyPipe, os.O_RDWR)
         os.write(fd, (msg + "|").encode())
-        print('write:', msg[:10], '...')
+        printLog('write:', msg[:10], '...')
 
     def readPipe(self):
         fd = os.open(self.jsPipe, os.O_RDWR)
         x = os.read(fd, self.MAX_READING_PIPE).decode().split('|')
-        # print('read:', x)
+        # printLog('read:', x)
         os.close(fd)
         return x
     
@@ -45,31 +46,31 @@ class Communicator():
             return
         
         qStrSplit = qStr.split()
-        print(qStrSplit)
+        printLog(qStrSplit)
         id = qStrSplit[0]
         qStr = ' '.join(qStrSplit[1:])
 
         start = time.time()
         res = self.data.query(qStr)
         end = time.time()
-        print('WMD: ', end - start)
+        printLog('WMD: ', end - start)
 
         # bm25 = BM25(qStr, res)
         # res = bm25.queryBM25()
         self.advancedModel.loadData(res)
         res = self.advancedModel.query(qStr)
         # get list of name from res[:5]
-        # print(res)
+        # printLog(res)
         # top5 = res[:5]
         top5 = [i['description']['name'] for i in res[:10]]
 
-        # print(id, ':', str(res))
+        # printLog(id, ':', str(res))
         self.writePipe(id + ' ' + json.dumps(top5))
 
 
-        print('query processed:', qStr)
+        printLog('query processed:', qStr)
         time.sleep(60)
-        print('sleep done')
+        printLog('sleep done')
 
         os._exit(0)
 
@@ -83,12 +84,12 @@ class Communicator():
                 data += temp[0]
                 if len(temp) > 1:
                     break
-        print('Received data')
+        printLog('Received data')
         self.data.loadData(data)
 
     def run(self):
         self.loadDataFromServer()
-        # print(self.data.data[0])
+        # printLog(self.data.data[0])
         while True:
             # remove child pids that have finished
             self.childPids = [pid for pid in self.childPids if os.waitpid(pid, os.WNOHANG) == (0, 0)]
@@ -97,19 +98,19 @@ class Communicator():
                 qStrs = self.readPipe()
 
                 # call os.fork to process each query
-                print('qStrs:', qStrs)
+                printLog('qStrs:', qStrs)
                 for qStr in qStrs:
                     if qStr == 'quit':
-                        print('quitting')
+                        printLog('quitting')
 
                         # use os.waitpid to wait for child processes to finish
                         for pid in self.childPids:
                             os.waitpid(pid, 0)
 
                         return
-                    # print(qStr[0])
+                    # printLog(qStr[0])
                     if len(qStr) > 0 and qStr[0].isalnum():
-                        print('Calling processQuery')
+                        printLog('Calling processQuery')
                         self.processQuery(qStr)
                     
 if __name__ == '__main__':
