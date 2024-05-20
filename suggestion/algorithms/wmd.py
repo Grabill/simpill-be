@@ -6,10 +6,11 @@ import gensim.downloader as api
 from gensim.similarities import WmdSimilarity
 import numpy as np
 import json
+from bs4 import BeautifulSoup
+from .suggestor import Suggestor
 
 class DataPreprocessor:
     def __init__(self):
-        download('stopwords')
         self.stop_words = stopwords.words('english')
         self.porter = PorterStemmer()
 
@@ -20,19 +21,26 @@ class DataPreprocessor:
         return [self.preprocess_sentence(sentence) for sentence in sent_tokenize(paragraph)]
     
 
-class SimilarityCalculator:
-    def __init__(self, model_path='../cleaned_data/splm_cleaned.json'):
+class SimilarityCalculator(Suggestor):
+    def __init__(self):
         print('Loading model...')
         self.model = api.load('word2vec-google-news-300')
-        with open(model_path) as f:
-            self.data = json.load(f)
+        download('stopwords')
+        self.data = []
+        self.descriptions = []
+        self.processed_descriptions = []
+        self.wmd_instances = []
+
+    def loadData(self, data):
+        data = json.loads(data)
+        self.data = self.clean_data(data)
         print('Model loaded.')
         self.descriptions = [(str(d['overview']) + str(d['uses'])).lower() for d in self.data]
         self.processed_descriptions = [DataPreprocessor().preprocess_paragraph(d) for d in self.descriptions]
         self.wmd_instances = [WmdSimilarity(desc, self.model, num_best=4) for desc in self.processed_descriptions]
         print('Instances created.')
-
-    def get_avg_sims(self, query, threshold):
+    
+    def get_avg_sims(self, query, threshold, num_processes=2):
         avg_sims = []
         for instance in self.wmd_instances:
             sims = instance.get_similarities(query)
@@ -51,7 +59,49 @@ class SimilarityCalculator:
     
     def query(self, qStr):
         print('Query: ', qStr)
+        # res = res.get_similarity(qStr)
         return self.get_similarity(qStr)
+    
+    def clean_data(self, data):
+        cleaned_data = []
+
+        for entry in data:
+            try:
+                if not entry.get('uses') or len(entry['uses']) == 0:
+                    continue
+
+                cleaned_entry = {}
+
+                # Clean 'name' field
+                cleaned_entry['name'] = entry['name']
+
+                # Clean 'overview' field
+                overview_text = entry['overview'] if entry.get('overview') else ''
+                cleaned_entry['overview'] = BeautifulSoup(overview_text, 'html.parser').get_text()
+
+                # Extract and clean 'uses' field
+                uses_text = ''
+                for use in entry['uses']:
+                    if all(key in use for key in ['title', 'uses']):
+                        title = use['title']
+                        if any(word.lower() in title.lower() for word in ['ineffective', 'not recommended', 'insufficient']):
+                            # print('Skipping...')
+                            continue
+
+                        li_tags = BeautifulSoup(use['uses'], 'html.parser').find_all('li')
+                        symptoms = [li.get_text(strip=True) for li in li_tags]
+                        uses_text += ' '.join([f"{title} {symptom}" for symptom in symptoms])
+
+                if uses_text:
+                    cleaned_entry['uses'] = uses_text
+                    cleaned_data.append(cleaned_entry)
+
+            except Exception as e:
+                print('Error: ', e)
+                raise e
+
+        return cleaned_data
+
     
 if __name__ == "__main__":
     query = 'Treatment of acne itchy skin'

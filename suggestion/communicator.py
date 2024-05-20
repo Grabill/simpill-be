@@ -1,49 +1,12 @@
 from rank_bm25 import BM25Okapi
 import json, nltk, os, time
-from wmd import SimilarityCalculator
-from bm25 import BM25
+from algorithms.wmd import SimilarityCalculator
+from algorithms.bm25 import BM25
+from algorithms.suggestor import Suggestor
 nltk.download('punkt')
 
-class Data:
-    def __init__(self):
-        self.data, self.raw_data = self.inputData()
-        self.tokenized_corpus = [nltk.word_tokenize(doc) for doc in self.data]
-        self.bm25 = BM25Okapi(self.tokenized_corpus)
-
-    def inputData(self):
-        with open('splm_cleaned.json') as f:
-            raw_data = json.load(f)
-        data = []
-        for i in raw_data:
-            if i['uses'] != None and len(i['uses']) > 0:
-                data.append(str(i['overview']) + str(i['uses']))
-        return [data, raw_data]
-
-    def inputSymp(self):
-        with open('symp_cleaned.json') as f:
-            raw_data = json.load(f)
-
-        data = []
-        for i in raw_data:
-            if i['current'].endswith('-1.html'):
-                data.append(i)
-        return data
-
-    def query(self, qStr):
-        res = self.bm25.get_top_n(nltk.word_tokenize(qStr), self.data, n=5)
-        out = []
-
-        for i in res:
-            for j in self.raw_data:
-                if i in str(j['overview']) + str(j['uses']):
-                    out.append(j)
-                    break
-        
-        # convert out to string
-        return json.dumps(out)
-
-class Communicator:
-    def __init__(self):
+class Communicator():
+    def __init__(self, suggestor: Suggestor=SimilarityCalculator, advancedModel: Suggestor=BM25):
         self.pyPipe = '/tmp/pyPipeSimpill'
         self.jsPipe = '/tmp/jsPipeSimpill'
         self.childPids = []
@@ -56,7 +19,8 @@ class Communicator:
         os.mkfifo(self.pyPipe)
         os.mkfifo(self.jsPipe)
 
-        self.data = None
+        self.data = suggestor()
+        self.advancedModel = advancedModel()
         self.MAX_READING_PIPE = 65536 # 64KB
 
     def writePipe(self, msg):
@@ -87,8 +51,10 @@ class Communicator:
 
         res = self.data.query(qStr)
 
-        bm25 = BM25(qStr, res)
-        res = bm25.queryBM25()
+        # bm25 = BM25(qStr, res)
+        # res = bm25.queryBM25()
+        self.advancedModel.loadData(res)
+        res = self.advancedModel.query(qStr)
         # get list of name from res[:5]
         # print(res)
         # top5 = res[:5]
@@ -104,8 +70,7 @@ class Communicator:
 
         os._exit(0)
 
-    
-    def run(self):
+    def loadDataFromServer(self):
         # blocking until data is loaded
         # hacky code, probably can be improved
         data = ''
@@ -116,7 +81,10 @@ class Communicator:
                 if len(temp) > 1:
                     break
         print('Received data')
-        self.data = SimilarityCalculator(data)
+        self.data.loadData(data)
+
+    def run(self):
+        self.loadDataFromServer()
         # print(self.data.data[0])
         while True:
             # remove child pids that have finished
