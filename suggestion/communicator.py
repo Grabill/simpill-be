@@ -22,6 +22,7 @@ class Communicator():
         self.data = suggestor()
         self.advancedModel = advancedModel()
         self.MAX_READING_PIPE = 65536 # 64KB
+        self.NUMBER_SPLM_PER_SYMP = 5
 
     def writePipe(self, msg):
         fd = os.open(self.pyPipe, os.O_RDWR)
@@ -61,7 +62,7 @@ class Communicator():
         # get list of name from res[:5]
         # print(res)
         # top5 = res[:5]
-        top5 = [i['description']['name'] for i in res[:10]]
+        top5 = [i['description']['name'] for i in res[:self.NUMBER_SPLM_PER_SYMP]]
 
         # print(id, ':', str(res))
         self.writePipe(id + ' ' + json.dumps(top5))
