@@ -1,14 +1,8 @@
 from rank_bm25 import BM25Okapi
 import json, nltk, os, time
-<<<<<<< HEAD:suggestion/suggestion.py
-from wmd import SimilarityCalculator
-from bm25 import BM25
-import time
-=======
 from algorithms.wmd import SimilarityCalculator
 from algorithms.bm25 import BM25
 from algorithms.suggestor import Suggestor
->>>>>>> fa216a611bf63295f24747f8deae55dc12385b97:suggestion/communicator.py
 nltk.download('punkt')
 
 class Communicator():
