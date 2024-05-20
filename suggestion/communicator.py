@@ -1,8 +1,14 @@
 from rank_bm25 import BM25Okapi
 import json, nltk, os, time
+<<<<<<< HEAD:suggestion/suggestion.py
+from wmd import SimilarityCalculator
+from bm25 import BM25
+import time
+=======
 from algorithms.wmd import SimilarityCalculator
 from algorithms.bm25 import BM25
 from algorithms.suggestor import Suggestor
+>>>>>>> fa216a611bf63295f24747f8deae55dc12385b97:suggestion/communicator.py
 nltk.download('punkt')
 
 class Communicator():
@@ -49,16 +55,30 @@ class Communicator():
         id = qStrSplit[0]
         qStr = ' '.join(qStrSplit[1:])
 
+        start = time.time()
         res = self.data.query(qStr)
+        end = time.time()
+        print('WMD: ', end - start)
 
+<<<<<<< HEAD:suggestion/suggestion.py
+        with open('results.json', 'w') as f:
+            json.dump(res, f, indent=4)
+
+        start = time.time()
+        bm25 = BM25(qStr, res)
+        res = bm25.queryBM25()
+        end = time.time()
+        print('BM25: ', end - start)
+=======
         # bm25 = BM25(qStr, res)
         # res = bm25.queryBM25()
         self.advancedModel.loadData(res)
         res = self.advancedModel.query(qStr)
+>>>>>>> fa216a611bf63295f24747f8deae55dc12385b97:suggestion/communicator.py
         # get list of name from res[:5]
         # print(res)
         # top5 = res[:5]
-        top5 = [i['description']['name'] for i in res[:5]]
+        top5 = [i['description']['name'] for i in res[:10]]
 
         # print(id, ':', str(res))
         self.writePipe(id + ' ' + json.dumps(top5))
@@ -81,11 +101,16 @@ class Communicator():
                 if len(temp) > 1:
                     break
         print('Received data')
+<<<<<<< HEAD:suggestion/suggestion.py
+        self.data = SimilarityCalculator(data)
+        # self.data = data
+=======
         self.data.loadData(data)
 
     def run(self):
         self.loadDataFromServer()
         # print(self.data.data[0])
+>>>>>>> fa216a611bf63295f24747f8deae55dc12385b97:suggestion/communicator.py
         while True:
             # remove child pids that have finished
             self.childPids = [pid for pid in self.childPids if os.waitpid(pid, os.WNOHANG) == (0, 0)]

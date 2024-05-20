@@ -22,6 +22,7 @@ class DataPreprocessor:
         return [self.preprocess_sentence(sentence) for sentence in sent_tokenize(paragraph)]
     
 
+# WMD: https://proceedings.mlr.press/v37/kusnerb15.pdf
 class SimilarityCalculator(Suggestor):
     def __init__(self):
         print('Loading model...')
