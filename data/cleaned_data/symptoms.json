@@ -6,20 +6,20 @@
         "Fainting",
         "Hair Loss",
         "Headache",
-        "Jaw/Gum/Tooth Pain",
-        "Lightheadedness",
+        "Tooth Pain",
+        "Jaw Pain",
+        "Gum Pain",
         "Memory Loss",
         "Neck Pain",
-        "Sinus Pressure",
-        "Tinnitus"
+        "Sinus Pain",
+        "Ringing in the Ears",
+        "Dandruff"
     ],
     "Eyes": [
         "Blurry Vision",
         "Dry Eyes",
-        "Eye Discharge",
         "Eye Pain",
         "Redness in Eye",
-        "Sensitivity to Light",
         "Vision Problems"
     ],
     "Chest and Back": [
@@ -28,13 +28,12 @@
         "Fast Heartbeat",
         "Irregular Heartbeat",
         "Lower Back Pain",
-        "Shortness of Breath",
-        "Wheezing"
+        "Shortness of Breath"
     ],
     "Skin": [
-        "Bruising",
+        "Bruises Skin",
         "Dry Skin",
-        "Hives",
+        "Hives Skin",
         "Itching",
         "Jaundice",
         "Rash",
@@ -47,14 +46,12 @@
         "Fatigue",
         "Fever",
         "Gout",
-        "Hot Flashes",
         "Insomnia",
         "Joint Pain",
         "Joint Swelling",
         "Muscle Inflammation",
         "Muscle Pain",
         "Muscle Weakness",
-        "Raynaud's Phenomenon",
         "Seizures",
         "Weight Gain",
         "Weight Loss"
@@ -63,28 +60,19 @@
         "Elbow Pain",
         "Hand Pain",
         "Nail Issues",
-        "Numb Hands",
         "Shoulder Pain",
-        "Tremors",
         "Wrist Pain"
     ],
     "Ear, Nose, Throat": [
         "Colds",
         "Cough",
-        "Coughs",
         "Difficulty Swallowing",
         "Dry Mouth",
-        "Earache",
-        "Excessive Thirst",
         "Hearing Loss",
         "Hoarseness",
         "Loss of Appetite",
         "Mucus",
-        "Smell Loss",
-        "Sore Throat",
-        "Swollen Glands",
-        "Taste Loss",
-        "Tinnitus"
+        "Sore Throat"
     ],
     "Legs and Feet": [
         "Ankle Pain",
@@ -94,9 +82,7 @@
         "Knee Pain",
         "Knee Swelling",
         "Leg Sore",
-        "Leg Swelling",
-        "Numb Legs",
-        "Tingling Feet"
+        "Leg Swelling"
     ],
     "Abdomen and Pelvis": [
         "Abdominal Pain",

@@ -47,7 +47,7 @@ class SimilarityCalculator:
             return float('inf')
         
         # Compute the distance matrix between embeddings
-        distance_matrix = cdist(query_embeddings, target_embeddings, metric='euclidean')
+        distance_matrix = cdist(query_embeddings, target_embeddings, metric='cosine')
         
         # Compute forward distance: each word in doc1 to closest word in doc2
         forward_distance = np.mean(np.min(distance_matrix, axis=1))
@@ -63,7 +63,7 @@ class SimilarityCalculator:
         return rwmd_distance
     
     # dung cho RWMD
-    def get_avg_distances(self, query, threshold=5.0, num_processes=2):
+    def get_avg_distances(self, query, threshold=4.5):
         avg_distances = []
         for desc in self.processed_descriptions:
             distances = []
