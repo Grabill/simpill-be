@@ -27,7 +27,7 @@ class BM25:
 
     def processData(self, data):
         wordtokenized_data = word_tokenize(data)
-        lemmatized_data = [wl.lemmatize(word) for word in wordtokenized_data]
+        lemmatized_data = [wl.lemmatize(word).lower() for word in wordtokenized_data]
         return lemmatized_data
     
     def queryBM25(self):
