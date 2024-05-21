@@ -1,11 +1,11 @@
 import { FilterQuery, Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Supplement } from 'src/schema/supplement.schema';
+import { Supplement } from '../../schema/supplement.schema';
 import { SupplementQueryResultDto } from './dto/supplement-query-result.dto';
-import { PipeService } from 'src/pipe.service';
-import { PipeQuery } from 'src/pipe-query';
-import { PipeResult } from 'src/pipe-result';
+import { PipeService } from '../../pipe.service';
+import { PipeQuery } from '../..//pipe-query';
+import { PipeResult } from '../../pipe-result';
 // import { populate } from 'src/util/database-helper';
 // import * as SupplementData from './data/splm_cleaned.json';
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model /*, Types*/} from 'mongoose';
-import { Symptom } from 'src/schema/symptom.schema';
+import { Symptom } from '../../schema/symptom.schema';
 import { SymptomQueryResultDto } from './dto/symptom-query-result.dto';
 // import { BodyPart, BodyPartDocument} from 'src/schema/body-part.schema';
 // import { populate } from 'src/util/database-helper';

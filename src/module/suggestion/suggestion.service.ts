@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PipeQuery } from 'src/pipe-query';
-import { PipeService } from 'src/pipe.service';
+import { PipeQuery } from '../../pipe-query';
+import { PipeService } from '../../pipe.service';
 import { SupplementService } from '../supplement/supplement.service';
 
 @Injectable()
