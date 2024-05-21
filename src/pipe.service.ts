@@ -71,14 +71,14 @@ export class PipeService {
                 const id = queryStr.slice(0, 36);
                 const result = queryStr.slice(36).trimStart().replace('"', '\"');
                 const data = JSON.parse(result);
-                this.results.set(id, { data: data, id: id });
+                this.results.set(id, { data: data });
             }
-            if (this.results.size > this.RESULTS_LIMIT) {
-                this.results = new Map(
-                    Array.from(this.results)
-                    .slice(this.RESULTS_LIMIT * this.FLUSH_FACTOR)
-                );
-            }
+            // if (this.results.size > this.RESULTS_LIMIT) {
+            //     this.results = new Map(
+            //         Array.from(this.results)
+            //         .slice(this.RESULTS_LIMIT * this.FLUSH_FACTOR)
+            //     );
+            // }
         });
         this.readPipe.on('end', (x) => {
             console.log('closed. hasError: ', x);
@@ -113,15 +113,17 @@ export class PipeService {
      */
     async wait4Result(id: string): Promise<PipeResult> {
         return new Promise(async (resolve, reject) => {
+            this.results.set(id, { data: null });
             const interval = setInterval(() => {
                 const result = this.results.get(id);
-                if (result) {
+                if (result.data !== null) {
                     clearInterval(interval);
                     resolve(result);
                 }
             }, 1000);
             setTimeout(() => {
                 clearInterval(interval);
+                this.results.delete(id);
                 reject(`timeout: ${id}`);
             }, this.TIMEOUT);
         });
