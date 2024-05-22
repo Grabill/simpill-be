@@ -27,7 +27,11 @@ export class SymptomService {
         //     populate(this.symptomModel, symptoms);
         // });
     }
-
+    
+    /**
+     * Get all symptoms
+     * @returns an array of SymptomQueryResultDto
+     */
     async getAllSymptoms(): Promise<SymptomQueryResultDto[]> {
         return await this.symptomModel.aggregate([
             {

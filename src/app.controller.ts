@@ -7,6 +7,9 @@ export class AppController {
         private readonly appService: AppService,
     ) {}
 
+    /**
+     * Health check endpoint
+     */
     @Get()
     getHello(): string {
         return this.appService.getHello();

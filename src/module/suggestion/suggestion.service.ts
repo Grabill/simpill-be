@@ -9,6 +9,11 @@ export class SuggestionService {
         private readonly pipeService: PipeService,
         private readonly supplementService: SupplementService) {}
 
+    /**
+     * Generate a suggestion based on the symptoms
+     * @param symptoms a string of symptoms
+     * @returns an array of SupplementQueryResultDto 
+     */
     async generateSuggestion(symptoms: string) {
         const query = new PipeQuery(symptoms);
         await this.pipeService.write2Pipe(query);

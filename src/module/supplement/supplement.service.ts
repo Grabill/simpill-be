@@ -72,8 +72,4 @@ export class SupplementService {
     private async getAllSupplements() : Promise<Supplement[]> {
         return await this.supplementModel.find().select('-_id');
     }
-
-    async getFirstTenSupplements() : Promise<Supplement[]> {
-        return this.supplementModel.find().limit(10);
-    }
 }

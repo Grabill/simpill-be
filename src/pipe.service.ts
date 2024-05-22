@@ -80,14 +80,6 @@ export class PipeService {
             //     );
             // }
         });
-        this.readPipe.on('end', (x) => {
-            console.log('closed. hasError: ', x);
-            console.log('data listener status: ', this.readPipe.listenerCount('data'));
-        });
-        this.readPipe.on('close', (x) => {
-            console.log('closed. hasError: ', x);
-            console.log('data listener status: ', this.readPipe.listenerCount('data'));
-        });
     }
 
     /**
