@@ -118,7 +118,8 @@ export class PipeService {
                 const result = this.results.get(id);
                 if (result.data !== null) {
                     clearInterval(interval);
-                    resolve(result);
+                    resolve(structuredClone(result));
+                    this.results.delete(id);
                 }
             }, 1000);
             setTimeout(() => {
