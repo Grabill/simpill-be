@@ -65,7 +65,7 @@ export class PipeService {
 
         this.readPipe.on('data', (buffer) => {
             let str = buffer.toString();
-            console.log('str:', str);
+            this.logger.log(`Received from pipe: ${str}`);
             const queryStrs = str.split('|').slice(0, -1);
             for (const queryStr of queryStrs) {
                 const id = queryStr.slice(0, 36);
