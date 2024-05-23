@@ -38,7 +38,7 @@ export class SupplementService {
         name = name.toUpperCase();
         const filter: FilterQuery<Supplement> = exact ? { name: name } : { name: { $regex: `^${name}.*` } };
         const selection = verbose ? '-_id' : '-_id name overview';
-        return await this.supplementModel.find(filter).select(selection);
+        return await this.supplementModel.find(filter).select(selection).limit(10).sort({ name: 1 });
     }
 
     /**
