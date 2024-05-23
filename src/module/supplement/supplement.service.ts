@@ -36,7 +36,7 @@ export class SupplementService {
      */
     async findByName(name: string, exact: boolean, verbose: boolean = false) : Promise<SupplementQueryResultDto[]> {
         name = name.toUpperCase();
-        const filter: FilterQuery<Supplement> = exact ? { name: name } : { name: { $regex: new RegExp(name) } };
+        const filter: FilterQuery<Supplement> = exact ? { name: name } : { name: { $regex: `^${name}.*` } };
         const selection = verbose ? '-_id' : '-_id name overview';
         return await this.supplementModel.find(filter).select(selection);
     }
