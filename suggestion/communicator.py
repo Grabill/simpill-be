@@ -3,6 +3,7 @@ import json, nltk, os, time
 from algorithms.wmd import SimilarityCalculator
 from algorithms.bm25 import BM25
 from algorithms.suggestor import Suggestor
+# from pipes import Pipe
 nltk.download('punkt')
 
 class Communicator():
@@ -23,6 +24,9 @@ class Communicator():
         self.advancedModel = advancedModel()
         self.MAX_READING_PIPE = 65536 # 64KB
         self.NUMBER_SPLM_PER_SYMP = 5
+        self.NUMBER_OF_PROCESS = 5
+
+        self.pipesChildProcesses = []
 
     def writePipe(self, msg):
         fd = os.open(self.pyPipe, os.O_RDWR)
@@ -38,13 +42,6 @@ class Communicator():
     
     # format: id query
     def processQuery(self, qStr):
-        pid = os.fork()
-
-        # return if it is the parent process
-        if pid > 0:
-            self.childPids.append(pid)
-            return
-        
         qStrSplit = qStr.split()
         print(qStrSplit)
         id = qStrSplit[0]
@@ -69,14 +66,27 @@ class Communicator():
 
 
         print('query processed:', qStr)
-        time.sleep(60)
-        print('sleep done')
+        # time.sleep(60)
+        # print('sleep done')
+
+        # os._exit(0)
+
+    def spawn_process(self, qStr, pipeParent=None):
+        pid = os.fork()
+
+        # return if it is the parent process
+        if pid > 0:
+            self.childPids.append(pid)
+            return
+        
+        self.processQuery(qStr)
 
         os._exit(0)
 
     def loadDataFromServer(self):
         # blocking until data is loaded
         # hacky code, probably can be improved
+        print('Waiting for data')
         data = ''
         while True:
             if os.path.exists(self.jsPipe):
@@ -90,9 +100,13 @@ class Communicator():
     def run(self):
         self.loadDataFromServer()
         # print(self.data.data[0])
+        print('Start: ', time.time())
         while True:
             # remove child pids that have finished
             self.childPids = [pid for pid in self.childPids if os.waitpid(pid, os.WNOHANG) == (0, 0)]
+            if len(self.childPids) > self.NUMBER_OF_PROCESS:
+                # time.sleep(0.1)
+                continue
 
             if os.path.exists(self.jsPipe):
                 qStrs = self.readPipe()
@@ -111,8 +125,10 @@ class Communicator():
                     # print(qStr[0])
                     if len(qStr) > 0 and qStr[0].isalnum():
                         print('Calling processQuery')
-                        self.processQuery(qStr)
+                        self.spawn_process(qStr)
+        
                     
 if __name__ == '__main__':
     comm = Communicator()
     comm.run()
+    print('End: ', time.time())
