@@ -36,7 +36,7 @@ class BM25(Suggestor):
         return lemmatized_data
     
     def query(self, queryStr: str) -> list:
-        scores = self.bm25.get_scores(queryStr)
+        scores = self.bm25.get_scores(self.processData(queryStr))
         sorted_indices = np.argsort(scores)[::-1]
         results = [self.data[i] for i in sorted_indices]
 
