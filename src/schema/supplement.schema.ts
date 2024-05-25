@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Schema as MongooseSchema } from 'mongoose';
+import { SupplementInteraction } from './supplement-interaction.schema';
 
 export type SupplementDocument = HydratedDocument<Supplement>;
 
@@ -9,25 +10,6 @@ class SupplementUse {
 
     @Prop()
     uses: string;
-}
-
-class SupplementInteractionPair {
-    @Prop()
-    subtitle: string;
-
-    @Prop()
-    content: string;
-}
-
-class SupplementInteraction {
-    @Prop()
-    title: string;
-
-    @Prop()
-    annotation: string;
-
-    @Prop([SupplementInteractionPair])
-    list: SupplementInteractionPair[];
 }
 
 @Schema()
@@ -44,7 +26,7 @@ export class Supplement {
     @Prop()
     side_effects: string;
 
-    @Prop([SupplementInteraction])
+    @Prop([{ type: MongooseSchema.Types.ObjectId, ref: 'SupplementInteraction' }])
     interactions: SupplementInteraction[];
 
     @Prop()

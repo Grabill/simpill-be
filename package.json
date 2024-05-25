@@ -10,7 +10,7 @@
         "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
         "start": "nest start",
         "start:s": "python suggestion/run.py & nest start",
-        "start:dev": "SKIP_SUGGESTION=false nest start --watch",
+        "start:dev": "SKIP_SUGGESTION=true nest start --watch",
         "start:dev:p": "SKIP_SUGGESTION=true nest start",
         "start:debug": "nest start --debug --watch",
         "start:prod": "node dist/main",

@@ -1,4 +1,4 @@
-import { FilterQuery, Model } from 'mongoose';
+import { FilterQuery, Model, model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Supplement } from '../../schema/supplement.schema';
@@ -6,6 +6,7 @@ import { SupplementQueryResultDto } from './dto/supplement-query-result.dto';
 import { PipeService } from '../../pipe.service';
 import { PipeQuery } from '../..//pipe-query';
 import { PipeResult } from '../../pipe-result';
+import { SupplementInteraction } from 'src/schema/supplement-interaction.schema';
 // import { populate } from 'src/util/database-helper';
 // import * as SupplementData from './data/splm_cleaned.json';
 
@@ -15,8 +16,6 @@ export class SupplementService {
         @InjectModel(Supplement.name) private supplementModel: Model<Supplement>,
         private readonly pipeService: PipeService,
     ) {
-        // populate(this.supplementModel, SupplementData as Supplement[]);
-
         if (process.env.SKIP_SUGGESTION === 'true') {
             return;
         }
@@ -34,11 +33,20 @@ export class SupplementService {
      * @param verbose whether to return the entire supplement object
      * @returns an array of supplements that match the name
      */
-    async findByName(name: string, exact: boolean, verbose: boolean = false) : Promise<SupplementQueryResultDto[]> {
+    async findByName(name: string, exact: boolean, verbose: boolean = false) : Promise<Supplement[]> {
         name = name.toUpperCase();
         const filter: FilterQuery<Supplement> = exact ? { name: name } : { name: { $regex: `^${name}.*` } };
         const selection = verbose ? '-_id' : '-_id name overview';
-        return await this.supplementModel.find(filter).select(selection).limit(10).sort({ name: 1 });
+        let query = this.supplementModel.find(filter);
+        if (verbose) {
+            query = query.populate({ 
+                path: 'interactions',
+                populate: {
+                    path: 'list'
+                },
+            });
+        }
+        return await query.select(selection).limit(10).sort({ name: 1 });
     }
 
     /**
@@ -70,6 +78,12 @@ export class SupplementService {
      * @returns an array of all supplements
      */
     private async getAllSupplements() : Promise<Supplement[]> {
-        return await this.supplementModel.find().select('-_id');
+        return await this.supplementModel.find().populate({
+            path: 'interactions',
+            populate: {
+                path: 'list',
+                model: 'SupplementInteractionPair',
+            },
+        }).select('-_id');
     }
 }
