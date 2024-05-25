@@ -81,8 +81,7 @@ export class SupplementService {
         return await this.supplementModel.find().populate({
             path: 'interactions',
             populate: {
-                path: 'list',
-                model: 'SupplementInteractionPair',
+                path: 'list'
             },
         }).select('-_id');
     }
